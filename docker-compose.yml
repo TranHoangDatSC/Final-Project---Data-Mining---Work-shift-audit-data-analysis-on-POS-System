@@ -15,6 +15,8 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     # Có thể mount volumes nếu muốn update data/static mà không cần build lại
-    # volumes:
-    #   - ./data:/app/data
-    #   - ./static/images:/app/static/images
+    volumes:
+      - ./data:/app/data
+      - ./static/images:/app/static/images
+
+# docker-compose up -d --build

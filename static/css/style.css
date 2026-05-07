@@ -704,3 +704,137 @@ code {
   .crisp-ring--inner { width: 100px; height: 100px; }
   .crisp-node { width: 70px; min-height: 70px; }
 }
+
+/* ── Narrative Report Layout (Phase 1) ─────────────────────────────────── */
+.report-content {
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  margin-top: 16px;
+}
+
+.report-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--bg-subtle);
+  padding-bottom: 12px;
+}
+
+.insight-block {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+.insight-block.reverse {
+  flex-direction: row-reverse;
+}
+
+.insight-text {
+  flex: 1;
+  font-size: .95rem;
+  color: var(--text-secondary);
+}
+
+.insight-text p strong {
+  color: var(--text-primary);
+}
+
+.insight-list {
+  margin-top: 12px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.insight-list li::marker {
+  color: var(--accent);
+}
+
+.highlight-text {
+  background: var(--accent-light);
+  color: var(--accent-dark);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: .85rem;
+}
+
+.insight-img {
+  flex: 1;
+  min-width: 320px;
+  max-width: 500px;
+  margin: 0; /* Override default margin */
+}
+
+/* Summary Box */
+.summary-box {
+  background: var(--accent-light);
+  border-left: 5px solid var(--accent);
+  border-radius: var(--radius);
+  padding: 32px;
+  margin-top: 16px;
+}
+
+.summary-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  color: var(--accent-dark);
+  margin-bottom: 24px;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 24px 32px; /* Khoảng cách dọc 24px, ngang 32px */
+}
+
+.summary-item {
+  background: rgba(255, 255, 255, 0.6);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(67, 97, 238, 0.15);
+}
+
+.summary-item strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  border-bottom: 1px dashed rgba(67, 97, 238, 0.3);
+  padding-bottom: 6px;
+}
+
+.summary-item p {
+  font-size: .88rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Responsive adjustment cho Report */
+@media (max-width: 900px) {
+  .insight-block, .insight-block.reverse {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+  
+  .insight-img {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+}

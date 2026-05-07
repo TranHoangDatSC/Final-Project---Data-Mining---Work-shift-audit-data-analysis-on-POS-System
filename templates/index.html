@@ -280,20 +280,95 @@
 
     <!-- ─── PANEL PHASE 1 ─────────────────────────────────────────────────── -->
     <section id="panel-phase-1" class="panel" role="tabpanel" data-phase="1">
-      <div class="phase-header" style="--phase-color: #4361ee">
-        <div class="phase-header-meta">
-          <span class="phase-tag">Vòng 1</span>
-          <span class="phase-crisp-label">CRISP-DM: Data Understanding + Data Preparation</span>
+        <div class="phase-header" style="--phase-color: #4361ee">
+            <div class="phase-header-meta">
+            <span class="phase-tag">Vòng 1</span>
+            <span class="phase-crisp-label">CRISP-DM: Hiểu Dữ Liệu (Data Understanding) + Chuẩn Bị Dữ Liệu (Data Preparation)</span>
+            </div>
+            <h2 class="phase-title">Phân tích Mô tả (Descriptive Analysis)</h2>
+            <p class="phase-desc">
+            Khám phá và làm sạch dữ liệu từ Nhật ký chính (MainLog) và Chi tiết giao dịch (DetailsTransaction). Áp dụng kỹ thuật nối dữ liệu theo khung thời gian (Window-based merge) bằng hàm <code>merge_asof(direction='forward')</code>, xây dựng thành công 6 đặc trưng kiểm toán hoàn chỉnh.
+            </p>
         </div>
-        <h2 class="phase-title">Descriptive Analysis</h2>
-        <p class="phase-desc">
-          Khám phá và làm sạch dữ liệu từ MainLog và DetailsTransaction. Window-based merge
-          bằng <code>merge_asof(direction='forward')</code>, xây dựng 6 features audit.
-        </p>
-      </div>
-      <div class="kpi-row" id="kpis-phase-1"><!-- JS inject --></div>
-      <div class="charts-grid" id="charts-phase-1"><!-- JS inject --></div>
-    </section>
+        
+        <div class="kpi-row" id="kpis-phase-1"></div>
+
+        <div class="report-content">
+            
+            <div class="report-section">
+            <h3 class="section-title">1. Phân phối Lệch Két & Đối soát Hóa đơn</h3>
+            <div class="insight-block">
+                <div class="insight-text">
+                <p><strong>Mục đích:</strong> Đánh giá mức độ sai lệch tài chính của các ca làm việc thông qua phương pháp Ước lượng mật độ hạt nhân (Kernel Density Estimate - KDE).</p>
+                <ul class="insight-list">
+                    <li>Phần lớn các ca làm việc có xu hướng lệch dương (dư tiền trong két), đỉnh của đường cong phân phối nằm lệch về bên phải mốc 0.</li>
+                    <li><span class="highlight-text">Phát hiện cốt lõi:</span> Biến sai lệch thanh toán (<code>Payment_Mismatch</code>) có giá trị <strong>0 trên toàn bộ 236 ca</strong>. Điều này khẳng định <em>không tồn tại lỗi bấm nhầm loại tiền</em> (Tiền mặt/Chuyển khoản) ở cấp độ hóa đơn trong giai đoạn này.</li>
+                    <li>Sai lệch duy nhất quan sát được là sai lệch tiền mặt thực tế lúc chốt ca (<code>Cash_Diff</code>).</li>
+                </ul>
+                </div>
+                <div class="chart-card insight-img">
+                <img src="/static/images/phase1/histogram-kde.png" alt="Phân phối Lệch Két" onclick="openLightbox(this.src, 'Biểu đồ Histogram & KDE: Phân phối Lệch Két')">
+                </div>
+            </div>
+            </div>
+
+            <div class="report-section">
+            <h3 class="section-title">2. Phân loại Ca làm việc theo Chiều lệch</h3>
+            <div class="insight-block reverse">
+                <div class="insight-text">
+                <p><strong>Mục đích:</strong> Định vị loại rủi ro của từng ca làm việc, phân biệt hành vi giữa Ca Sáng (màu xanh lá) và Ca Chiều (màu cam).</p>
+                <ul class="insight-list">
+                    <li>Dữ liệu tập trung chủ yếu ở đường trục dọc do độ lệch đối soát hóa đơn luôn bằng 0.</li>
+                    <li>Ca Chiều có mức độ phân tán rộng hơn, xuất hiện nhiều ca có mức <strong>Dư két cực đoan</strong> (nằm tít trên cao của trục Y).</li>
+                    <li>Sự phân cực này là cơ sở toán học vững chắc để áp dụng thuật toán phân cụm không giám sát (Unsupervised Clustering) ở Vòng tiếp theo.</li>
+                </ul>
+                </div>
+                <div class="chart-card insight-img">
+                <img src="/static/images/phase1/scatter-plot.png" alt="Biểu đồ phân tán Scatter Plot" onclick="openLightbox(this.src, 'Scatter Plot: Phân loại ca theo chiều lệch')">
+                </div>
+            </div>
+            </div>
+
+            <div class="report-section">
+            <h3 class="section-title">3. Phân tích Tương quan (Correlation Analysis)</h3>
+            <div class="insight-block">
+                <div class="insight-text">
+                <p><strong>Mục đích:</strong> Đo lường mức độ tác động lẫn nhau giữa quy mô doanh thu, số lượng hóa đơn và mức độ lệch két.</p>
+                <ul class="insight-list">
+                    <li>Tương quan mạnh nhất nằm giữa tổng doanh thu (<code>total_revenue</code>) và số lượng hóa đơn (<code>bill_count</code>) — điều hoàn toàn hợp lý về mặt vận hành kinh doanh.</li>
+                    <li>Mức lệch két tuyệt đối (<code>Cash_Diff</code>) và tỷ lệ lệch két (<code>CashDiff_Ratio</code>) có tương quan ở mức $r = 0.55$. Sự đa cộng tuyến (Multicollinearity) nhẹ này không ảnh hưởng đến thuật toán K-Means ở vòng sau, đồng thời biến tỷ lệ bắt buộc phải được giữ lại vì nó phản ánh quy mô sai lệch so với ca làm việc.</li>
+                </ul>
+                </div>
+                <div class="chart-card insight-img">
+                <img src="/static/images/phase1/correlation-heatmap.png" alt="Biểu đồ nhiệt độ Heatmap" onclick="openLightbox(this.src, 'Heatmap: Ma trận tương quan các Đặc trưng')">
+                </div>
+            </div>
+            </div>
+
+            <div class="summary-box">
+            <h3 class="summary-title">💡 TỔNG KẾT VÒNG 1 & CHUẨN BỊ ĐẦU VÀO</h3>
+            <div class="summary-grid">
+                <div class="summary-item">
+                <strong>✅ Xử lý Dữ liệu (Data Processing):</strong>
+                <p>Đã ghép thành công bảng chi tiết (<code>DetailsTransaction</code>) vào từng ca trong bảng nhật ký chính (<code>MainLog</code>) bằng kỹ thuật cửa sổ thời gian.</p>
+                </div>
+                <div class="summary-item">
+                <strong>⚙️ Kỹ thuật Đặc trưng (Feature Engineering):</strong>
+                <p>Tạo ra bộ 6 đặc trưng kiểm toán mới bao gồm: Lệch két (<code>Cash_Diff</code>), Lệch thanh toán (<code>Payment_Mismatch</code>), Lệch doanh thu (<code>Revenue_Mismatch</code>), Tỷ lệ tiền mặt (<code>Cash_Ratio</code>), Tỷ lệ lệch két (<code>CashDiff_Ratio</code>), và Tốc độ ca làm việc (<code>Shift_Velocity</code>).</p>
+                </div>
+                <div class="summary-item">
+                <strong>➡️ Chuyển tiếp Vòng 2 (Diagnostic):</strong>
+                <p>Các hình thái phân phối bất thường đã được nhận diện. Bộ dữ liệu sạch sẽ được đưa vào thuật toán K-Means để gom cụm các mẫu lệch két tương đồng.</p>
+                </div>
+                <div class="summary-item">
+                <strong>➡️ Chuyển tiếp Vòng 3 (Customer Pattern):</strong>
+                <p>Đã trích xuất thành công 101 giao dịch có chứa ghi chú (<code>notes</code>) của khách hàng để tiến hành Khai phá văn bản (Text Mining) độc lập.</p>
+                </div>
+            </div>
+            </div>
+
+        </div>
+        </section>
 
     <!-- ─── PANEL PHASE 2 ─────────────────────────────────────────────────── -->
     <section id="panel-phase-2" class="panel" role="tabpanel" data-phase="2">
