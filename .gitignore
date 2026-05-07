@@ -11,8 +11,6 @@ venv/
 .env
 *.env
 .env.local
-requirements.txt
-requirements_deploy.txt
 
 # ── Dữ liệu & Database
 data/
