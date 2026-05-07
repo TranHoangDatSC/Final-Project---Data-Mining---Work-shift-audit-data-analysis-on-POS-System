@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  pos-audit-web:
+    container_name: pos-audit-fastapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+    # Đọc biến môi trường từ file .env local (nếu có)
+    env_file:
+      - .env
+    environment:
+      - PYTHONUNBUFFERED=1
+    # Có thể mount volumes nếu muốn update data/static mà không cần build lại
+    # volumes:
+    #   - ./data:/app/data
+    #   - ./static/images:/app/static/images

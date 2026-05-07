@@ -1,0 +1,22 @@
+# Git
+.git
+.gitignore
+
+# Môi trường ảo & Cache
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Môi trường cục bộ
+.env
+
+# Thư mục research/training không dùng trên Web
+notebooks_v2/
+document/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore

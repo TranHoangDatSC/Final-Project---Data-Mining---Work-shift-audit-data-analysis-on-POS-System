@@ -1,0 +1,706 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   style.css — POS Audit Data Mining Report
+   Font: DM Serif Display (headings) + DM Sans (body)
+   Palette: Academic white base, #1a1a2e text, #4361ee accent
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── CSS Variables ─────────────────────────────────────────────────────── */
+:root {
+  --bg:          #ffffff;
+  --bg-subtle:   #f7f8fc;
+  --bg-card:     #ffffff;
+  --border:      #e8eaf2;
+  --border-med:  #d0d4e8;
+
+  --text-primary:   #1a1a2e;
+  --text-secondary: #4a4a6a;
+  --text-muted:     #8888aa;
+
+  --accent:        #4361ee;
+  --accent-light:  #eef0fd;
+  --accent-dark:   #2d47c8;
+
+  --phase-1: #4361ee;
+  --phase-2: #f4845f;
+  --phase-3: #7b5ea7;
+  --phase-4: #2ec4b6;
+
+  --radius-sm: 6px;
+  --radius:    12px;
+  --radius-lg: 20px;
+
+  --shadow-sm: 0 1px 3px rgba(26,26,46,.07), 0 1px 2px rgba(26,26,46,.04);
+  --shadow:    0 4px 16px rgba(26,26,46,.08), 0 1px 4px rgba(26,26,46,.04);
+  --shadow-lg: 0 12px 40px rgba(26,26,46,.12), 0 4px 12px rgba(26,26,46,.06);
+
+  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-body:    'DM Sans', system-ui, sans-serif;
+
+  --header-h:  72px;
+  --nav-h:     56px;
+  --max-w:     1200px;
+}
+
+/* ── Reset & Base ─────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; font-size: 16px; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-primary);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+code {
+  font-size: .85em;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* ── Site Header ──────────────────────────────────────────────────────── */
+.site-header {
+  height: var(--header-h);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow-sm);
+}
+
+.header-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Logo Badge — chữ HCMUE trong hình chữ nhật kẻ viền */
+.logo-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 44px;
+  border: 2px solid var(--accent);
+  border-radius: var(--radius-sm);
+  flex-shrink: 0;
+}
+.logo-text {
+  font-family: var(--font-display);
+  font-size: .9rem;
+  font-weight: 400;
+  color: var(--accent);
+  letter-spacing: .06em;
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.header-titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.header-subtitle {
+  font-size: .75rem;
+  color: var(--text-muted);
+  letter-spacing: .02em;
+}
+.header-divider { display: none; }
+
+.header-project {
+  text-align: right;
+}
+.project-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.project-desc {
+  font-size: .75rem;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+
+/* ── Phase Navigation Tabs ────────────────────────────────────────────── */
+.phase-nav {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: var(--header-h);
+  z-index: 90;
+}
+
+.nav-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  align-items: stretch;
+  gap: 2px;
+  height: var(--nav-h);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+
+.nav-tab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 16px;
+  height: 100%;
+  font-size: .85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color .18s, border-color .18s, background .18s;
+  border-radius: 0;
+  flex-shrink: 0;
+}
+.nav-tab:hover {
+  color: var(--text-primary);
+  background: var(--bg-subtle);
+}
+.nav-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-icon { font-size: 1rem; }
+.tab-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.tab-label { font-weight: 500; }
+.tab-sublabel {
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-left: 2px;
+}
+.nav-tab.active .tab-sublabel { color: var(--accent); opacity: .7; }
+
+/* ── Content Area & Panels ────────────────────────────────────────────── */
+.content-area {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+}
+
+.panel { display: none; animation: fadeIn .3s ease; }
+.panel.active { display: block; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Home Panel Hero ──────────────────────────────────────────────────── */
+.panel-hero {
+  text-align: center;
+  margin-bottom: 48px;
+}
+.panel-hero-title {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+.panel-hero-sub {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ════════════════════════════════════════════════════════════════════════════
+   CRISP-DM DIAGRAM
+   
+   Layout kỹ thuật:
+   • .crisp-diagram: 400×400px container, position:relative, margin:auto
+   • .crisp-ring: vòng tròn decorative (border-radius:50%)
+   • .crisp-center: node trung tâm (absolute, centered)
+   • .crisp-node: các node xung quanh (absolute), đặt theo vị trí %
+     Tọa độ (top/left) tính theo công thức:
+       x = 50% + r × cos(θ), y = 50% + r × sin(θ)
+       r = 38% (khoảng cách từ tâm đến node)
+       θ: 12h=-90°, 2h=-30°, 4h=30°, 6h=90°, 8h=150°, 10h=210°
+   • .crisp-arrows: SVG phủ toàn bộ diagram để vẽ mũi tên cong
+   ════════════════════════════════════════════════════════════════════════ */
+
+.crisp-diagram {
+  position: relative;
+  width: 480px;
+  height: 480px;
+  margin: 0 auto 56px;
+  /* Prevent accidental overflow on mobile */
+  max-width: 100%;
+}
+
+/* Vòng tròn trang trí */
+.crisp-ring {
+  position: absolute;
+  top: 50%; left: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.crisp-ring--outer {
+  width: 380px; height: 380px;
+  border: 1px dashed var(--border-med);
+}
+.crisp-ring--inner {
+  width: 180px; height: 180px;
+  border: 1px solid var(--border);
+  background: radial-gradient(circle, #f0f2ff 0%, var(--bg) 100%);
+}
+
+/* Node trung tâm DATA */
+.crisp-center {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px; height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  pointer-events: none;
+  z-index: 2;
+}
+.crisp-center-icon { font-size: 1.6rem; }
+.crisp-center-label {
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: .12em;
+  color: var(--text-muted);
+}
+
+/* ─── CRISP-DM Nodes ─────────────────────────────────────────────────────
+   Tọa độ đặt theo vị trí kim đồng hồ quanh vòng tròn r=38%
+   translate(-50%, -50%) để canh giữa node theo điểm anchor
+─────────────────────────────────────────────────────────────────────── */
+.crisp-node {
+  position: absolute;
+  width: 108px;
+  min-height: 108px;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px 8px;
+  text-align: center;
+
+  background: var(--bg-card);
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+
+  cursor: pointer;
+  transition: box-shadow .2s, border-color .2s, transform .2s;
+  z-index: 3;
+}
+.crisp-node:hover {
+  box-shadow: var(--shadow);
+  border-color: var(--accent);
+  transform: translate(-50%, -50%) scale(1.06);
+}
+.crisp-node[data-target=""]:hover {
+  border-color: var(--border-med);
+  transform: translate(-50%, -50%) scale(1.03);
+  cursor: default;
+}
+
+/* Tọa độ 6 nodes (top: y%, left: x%)
+   Công thức: left = 50 + 38×cos(θ), top = 50 + 38×sin(θ)  [đơn vị %]
+   Sử dụng cos/sin với θ tính bằng radian
+*/
+/* 12h: θ = -π/2  → cos=-0, sin=-1   → left=50%, top=12%  */
+.crisp-node--top          { top: 12%;  left: 50%; }
+/* 2h:  θ = -π/6  → cos=0.866, sin=-0.5 → left=83%, top=31% */
+.crisp-node--top-right    { top: 31%;  left: 83%; }
+/* 4h:  θ = π/6   → cos=0.866, sin=0.5  → left=83%, top=69% */
+.crisp-node--bottom-right { top: 69%;  left: 83%; }
+/* 6h:  θ = π/2   → cos=0, sin=1    → left=50%, top=88%  */
+.crisp-node--bottom       { top: 88%;  left: 50%; }
+/* 8h:  θ = 7π/6  → cos=-0.866, sin=0.5 → left=17%, top=69% */
+.crisp-node--bottom-left  { top: 69%;  left: 17%; }
+/* 10h: θ = -5π/6 → cos=-0.866, sin=-0.5 → left=17%, top=31% */
+.crisp-node--top-left     { top: 31%;  left: 17%; }
+
+.node-number {
+  font-size: .6rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: .1em;
+  line-height: 1;
+}
+.node-icon { font-size: 1.4rem; line-height: 1; }
+.node-label {
+  font-size: .72rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+.node-badge {
+  font-size: .6rem;
+  padding: 2px 6px;
+  border-radius: 20px;
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  margin-top: 2px;
+  white-space: nowrap;
+}
+.node-badge--blue   { background: #eef0fd; color: var(--phase-1); }
+.node-badge--orange { background: #fff0ea; color: var(--phase-2); }
+.node-badge--purple { background: #f2eef9; color: var(--phase-3); }
+.node-badge--teal   { background: #e8f9f7; color: var(--phase-4); }
+
+/* SVG mũi tên phủ trên diagram */
+.crisp-arrows {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ── Home Quick-Nav Cards ──────────────────────────────────────────────── */
+.home-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px;
+  margin-top: 16px;
+}
+.home-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: left;
+  transition: box-shadow .18s, border-color .18s, transform .15s;
+}
+.home-card:hover {
+  box-shadow: var(--shadow);
+  border-color: var(--border-med);
+  transform: translateY(-2px);
+}
+.hcard-num {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--border-med);
+  flex-shrink: 0;
+  line-height: 1;
+}
+.hcard-color {
+  width: 4px;
+  height: 36px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.hcard-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.hcard-body strong { font-size: .9rem; color: var(--text-primary); }
+.hcard-body span { font-size: .75rem; color: var(--text-muted); }
+.hcard-arrow {
+  font-size: 1rem;
+  color: var(--text-muted);
+  transition: transform .18s, color .18s;
+}
+.home-card:hover .hcard-arrow {
+  transform: translateX(4px);
+  color: var(--accent);
+}
+
+/* ── Phase Header ──────────────────────────────────────────────────────── */
+.phase-header {
+  border-left: 4px solid var(--phase-color, var(--accent));
+  padding-left: 20px;
+  margin-bottom: 32px;
+}
+.phase-header-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+  flex-wrap: wrap;
+}
+.phase-tag {
+  display: inline-flex;
+  align-items: center;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+  color: var(--phase-color, var(--accent));
+  background: color-mix(in srgb, var(--phase-color, var(--accent)) 10%, white);
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+.phase-crisp-label {
+  font-size: .72rem;
+  color: var(--text-muted);
+}
+.phase-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.phase-desc {
+  font-size: .9rem;
+  color: var(--text-secondary);
+  max-width: 680px;
+  line-height: 1.7;
+}
+
+/* ── KPI Cards Row ──────────────────────────────────────────────────────── */
+.kpi-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 32px;
+}
+.kpi-card {
+  flex: 1 1 160px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  box-shadow: var(--shadow-sm);
+}
+.kpi-card-label {
+  font-size: .72rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  margin-bottom: 6px;
+}
+.kpi-card-value {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.kpi-card-note {
+  font-size: .72rem;
+  color: var(--text-muted);
+}
+
+/* ── Charts Grid ──────────────────────────────────────────────────────── */
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: 16px;
+}
+.chart-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .2s, transform .15s;
+  cursor: pointer;
+}
+.chart-card:hover {
+  box-shadow: var(--shadow);
+  transform: translateY(-2px);
+}
+.chart-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  background: var(--bg-subtle);
+  padding: 8px;
+  display: block;
+}
+.chart-card-footer {
+  padding: 10px 14px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chart-card-name {
+  font-size: .78rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+.chart-expand-btn {
+  font-size: .7rem;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity .2s;
+}
+.chart-card:hover .chart-expand-btn { opacity: 1; }
+
+/* Loading state */
+.charts-loading {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 48px;
+  color: var(--text-muted);
+  font-size: .9rem;
+}
+.charts-placeholder {
+  text-align: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+  font-size: .85rem;
+  line-height: 1.8;
+  background: var(--bg-subtle);
+  border: 1px dashed var(--border-med);
+  border-radius: var(--radius);
+}
+.charts-placeholder code {
+  display: block;
+  margin-top: 8px;
+  font-size: .75rem;
+}
+
+/* ── Lightbox ──────────────────────────────────────────────────────────── */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.lightbox[hidden] { display: none !important; }
+
+.lightbox-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 20, .85);
+  backdrop-filter: blur(4px);
+}
+.lightbox-content {
+  position: relative;
+  z-index: 1;
+  max-width: 90vw;
+  max-height: 90vh;
+  text-align: center;
+}
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  background: white;
+}
+.lightbox-caption {
+  margin-top: 12px;
+  font-size: .82rem;
+  color: rgba(255,255,255,.7);
+}
+.lightbox-close {
+  position: absolute;
+  top: 16px; right: 16px;
+  z-index: 2;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.15);
+  color: white;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .18s;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,.2);
+}
+.lightbox-close:hover { background: rgba(255,255,255,.25); }
+
+/* ── Toast Notification ────────────────────────────────────────────────── */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: var(--text-primary);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 24px;
+  font-size: .82rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s, transform .25s;
+  z-index: 500;
+  white-space: nowrap;
+  box-shadow: var(--shadow);
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ── Responsive ─────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  :root { --header-h: 60px; --nav-h: 48px; }
+
+  .header-inner { padding: 0 16px; }
+  .project-title { font-size: 1rem; }
+  .project-desc { display: none; }
+  .header-titles { display: none; }
+
+  .content-area { padding: 24px 16px 60px; }
+
+  /* CRISP diagram responsive: scale down */
+  .crisp-diagram {
+    width: 320px;
+    height: 320px;
+  }
+  .crisp-ring--outer { width: 260px; height: 260px; }
+  .crisp-ring--inner { width: 120px; height: 120px; }
+  .crisp-node {
+    width: 80px;
+    min-height: 80px;
+    padding: 8px 4px;
+  }
+  .node-icon { font-size: 1.1rem; }
+  .node-label { font-size: .62rem; }
+  .node-badge { display: none; }
+
+  .panel-hero-title { font-size: 1.6rem; }
+  .phase-title { font-size: 1.4rem; }
+  .charts-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 480px) {
+  .crisp-diagram { width: 280px; height: 280px; }
+  .crisp-ring--outer { width: 220px; height: 220px; }
+  .crisp-ring--inner { width: 100px; height: 100px; }
+  .crisp-node { width: 70px; min-height: 70px; }
+}

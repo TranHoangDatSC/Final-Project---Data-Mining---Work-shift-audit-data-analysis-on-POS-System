@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>POS Audit — Data Mining Report | HCMUE</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       HEADER — Logo HCMUE + Tiêu đề trang trọng
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="header-brand">
+        <!-- Logo placeholder — thay /static/images/logo-hcmue.png nếu có file -->
+        <div class="logo-badge" aria-label="HCMUE Logo">
+          <span class="logo-text">HCMUE</span>
+        </div>
+        <div class="header-titles">
+          <span class="header-subtitle">Trường Đại học Sư phạm TP.HCM</span>
+          <span class="header-divider">·</span>
+          <span class="header-subtitle">Môn: Data Mining</span>
+        </div>
+      </div>
+      <div class="header-project">
+        <h1 class="project-title">POS Audit Analytics</h1>
+        <p class="project-desc">Phân tích dữ liệu kiểm toán ca làm việc · CRISP-DM Pipeline</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       MAIN NAVIGATION — Tab switcher (4 phases)
+       Script.js lắng nghe click vào đây để show/hide panel tương ứng
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <nav class="phase-nav" role="tablist" aria-label="Phase navigation">
+    <div class="nav-inner">
+      <button class="nav-tab active"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-home"
+              data-target="home">
+        <span class="tab-icon">⬡</span>
+        <span class="tab-label">Tổng Quan</span>
+      </button>
+      <button class="nav-tab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-phase-1"
+              data-target="phase-1">
+        <span class="tab-dot" style="background:#4361ee"></span>
+        <span class="tab-label">Vòng 1<span class="tab-sublabel"> Descriptive</span></span>
+      </button>
+      <button class="nav-tab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-phase-2"
+              data-target="phase-2">
+        <span class="tab-dot" style="background:#f4845f"></span>
+        <span class="tab-label">Vòng 2<span class="tab-sublabel"> Diagnostic</span></span>
+      </button>
+      <button class="nav-tab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-phase-3"
+              data-target="phase-3">
+        <span class="tab-dot" style="background:#7b5ea7"></span>
+        <span class="tab-label">Vòng 3<span class="tab-sublabel"> Customer</span></span>
+      </button>
+      <button class="nav-tab"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-phase-4"
+              data-target="phase-4">
+        <span class="tab-dot" style="background:#2ec4b6"></span>
+        <span class="tab-label">Vòng 4<span class="tab-sublabel"> Prescriptive</span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════
+       CONTENT AREA — tất cả panel, chỉ 1 panel visible tại 1 thời điểm
+  ═══════════════════════════════════════════════════════════════════════ -->
+  <main class="content-area">
+
+    <!-- ─── PANEL HOME: CRISP-DM Diagram ─────────────────────────────────── -->
+    <section id="panel-home"
+             class="panel active"
+             role="tabpanel"
+             aria-labelledby="tab-home">
+
+      <div class="panel-hero">
+        <h2 class="panel-hero-title">Vòng đời CRISP-DM</h2>
+        <p class="panel-hero-sub">
+          Click vào từng node để khám phá phase phân tích tương ứng.
+          Dự án được thực hiện trên dữ liệu thực từ hệ thống POS Apps Script.
+        </p>
+      </div>
+
+      <!--
+        ══════════════════════════════════════════════════════════════════
+        CRISP-DM DIAGRAM — Được code bằng HTML/CSS thuần, KHÔNG dùng <img>
+        
+        Thiết kế: vòng tròn 6 node xoay quanh trung tâm
+        Mỗi node = clickable button → activate tab tương ứng
+        
+        Layout kỹ thuật:
+          • Container dùng CSS Grid + position:relative
+          • Các node dùng position:absolute với transform để đặt theo góc
+          • Mũi tên dùng CSS border + transform:rotate để tạo cung tròn
+          • Các node mapping về Phase của dự án dùng data-target="phase-N"
+          • Các node CRISP-DM gốc (không mapping) dùng data-target="" 
+            → script.js sẽ bỏ qua click trên node này
+        ══════════════════════════════════════════════════════════════════
+      -->
+      <div class="crisp-diagram" role="img" aria-label="CRISP-DM lifecycle diagram">
+        
+        <!-- Vòng kết nối ngoài (decorative ring) -->
+        <div class="crisp-ring crisp-ring--outer"></div>
+        <div class="crisp-ring crisp-ring--inner"></div>
+
+        <!-- Node trung tâm: Data -->
+        <div class="crisp-center">
+          <div class="crisp-center-icon">🗄</div>
+          <div class="crisp-center-label">DATA</div>
+        </div>
+
+        <!--
+          6 nodes đặt theo vị trí kim đồng hồ:
+          12h → Business Understanding
+          2h  → Data Understanding  ← map Phase 1
+          4h  → Data Preparation    ← map Phase 1
+          6h  → Modeling            ← map Phase 2 & 3
+          8h  → Evaluation          ← map Phase 4
+          10h → Deployment          ← map Phase 4
+        -->
+
+        <!-- Node 1 — 12h: Business Understanding (không map trực tiếp) -->
+        <button class="crisp-node crisp-node--top"
+                data-target=""
+                data-phase-name="Business Understanding"
+                title="Business Understanding — Hiểu bài toán kinh doanh">
+          <span class="node-number">01</span>
+          <span class="node-icon">🎯</span>
+          <span class="node-label">Business<br>Understanding</span>
+          <span class="node-badge">Nền tảng</span>
+        </button>
+
+        <!-- Node 2 — 2h: Data Understanding → map Phase 1 -->
+        <button class="crisp-node crisp-node--top-right"
+                data-target="phase-1"
+                data-phase-name="Data Understanding"
+                title="Click để xem Phase 1 — Descriptive Analysis">
+          <span class="node-number">02</span>
+          <span class="node-icon">🔍</span>
+          <span class="node-label">Data<br>Understanding</span>
+          <span class="node-badge node-badge--blue">Vòng 1</span>
+        </button>
+
+        <!-- Node 3 — 4h: Data Preparation → map Phase 1 -->
+        <button class="crisp-node crisp-node--bottom-right"
+                data-target="phase-1"
+                data-phase-name="Data Preparation"
+                title="Click để xem Phase 1 — Data Preparation">
+          <span class="node-number">03</span>
+          <span class="node-icon">🔧</span>
+          <span class="node-label">Data<br>Preparation</span>
+          <span class="node-badge node-badge--blue">Vòng 1</span>
+        </button>
+
+        <!-- Node 4 — 6h: Modeling → map Phase 2 & 3 -->
+        <button class="crisp-node crisp-node--bottom"
+                data-target="phase-2"
+                data-phase-name="Modeling"
+                title="Click để xem Phase 2 — K-Means Clustering">
+          <span class="node-number">04</span>
+          <span class="node-icon">🤖</span>
+          <span class="node-label">Modeling</span>
+          <span class="node-badge node-badge--orange">Vòng 2 & 3</span>
+        </button>
+
+        <!-- Node 5 — 8h: Evaluation → map Phase 4 -->
+        <button class="crisp-node crisp-node--bottom-left"
+                data-target="phase-4"
+                data-phase-name="Evaluation"
+                title="Click để xem Phase 4 — Rule Engine">
+          <span class="node-number">05</span>
+          <span class="node-icon">📊</span>
+          <span class="node-label">Evaluation</span>
+          <span class="node-badge node-badge--teal">Vòng 4</span>
+        </button>
+
+        <!-- Node 6 — 10h: Deployment → map Phase 4 -->
+        <button class="crisp-node crisp-node--top-left"
+                data-target="phase-4"
+                data-phase-name="Deployment"
+                title="Click để xem Phase 4 — Prescriptive">
+          <span class="node-number">06</span>
+          <span class="node-icon">🚀</span>
+          <span class="node-label">Deployment</span>
+          <span class="node-badge node-badge--teal">Vòng 4</span>
+        </button>
+
+        <!-- Mũi tên vòng tròn — dùng SVG inline để vẽ path cong -->
+        <svg class="crisp-arrows" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <marker id="arrowhead" markerWidth="6" markerHeight="6"
+                    refX="3" refY="3" orient="auto">
+              <path d="M0,0 L0,6 L6,3 z" fill="var(--accent)" opacity="0.6"/>
+            </marker>
+          </defs>
+          <!-- 6 cung nối các node theo chiều kim đồng hồ -->
+          <path d="M 200 42  A 158 158 0 0 1 335 112" 
+                fill="none" stroke="var(--accent)" stroke-width="1.5"
+                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+          <path d="M 340 125 A 158 158 0 0 1 340 275"
+                fill="none" stroke="var(--accent)" stroke-width="1.5"
+                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+          <path d="M 328 285 A 158 158 0 0 1 200 358"
+                fill="none" stroke="var(--accent)" stroke-width="1.5"
+                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+          <path d="M 185 358 A 158 158 0 0 1 58 282"
+                fill="none" stroke="var(--accent)" stroke-width="1.5"
+                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+          <path d="M 55 268 A 158 158 0 0 1 60 128"
+                fill="none" stroke="var(--accent)" stroke-width="1.5"
+                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+          <path d="M 72 115  A 158 158 0 0 1 196 40"
+                fill="none" stroke="var(--accent)" stroke-width="1.5"
+                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+        </svg>
+
+      </div><!-- /.crisp-diagram -->
+
+      <!-- Quick-nav cards bên dưới diagram -->
+      <div class="home-cards">
+        <button class="home-card" data-target="phase-1">
+          <span class="hcard-num">01</span>
+          <span class="hcard-color" style="background:#4361ee"></span>
+          <div class="hcard-body">
+            <strong>Descriptive</strong>
+            <span>EDA · Feature Engineering · Pipeline</span>
+          </div>
+          <span class="hcard-arrow">→</span>
+        </button>
+        <button class="home-card" data-target="phase-2">
+          <span class="hcard-num">02</span>
+          <span class="hcard-color" style="background:#f4845f"></span>
+          <div class="hcard-body">
+            <strong>Diagnostic</strong>
+            <span>K-Means · PCA · Silhouette</span>
+          </div>
+          <span class="hcard-arrow">→</span>
+        </button>
+        <button class="home-card" data-target="phase-3">
+          <span class="hcard-num">03</span>
+          <span class="hcard-color" style="background:#7b5ea7"></span>
+          <div class="hcard-body">
+            <strong>Customer Pattern</strong>
+            <span>Text Mining · Anomaly Detection</span>
+          </div>
+          <span class="hcard-arrow">→</span>
+        </button>
+        <button class="home-card" data-target="phase-4">
+          <span class="hcard-num">04</span>
+          <span class="hcard-color" style="background:#2ec4b6"></span>
+          <div class="hcard-body">
+            <strong>Prescriptive</strong>
+            <span>Rule Engine · Khuyến nghị</span>
+          </div>
+          <span class="hcard-arrow">→</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ─── PANEL PHASE 1 ─────────────────────────────────────────────────── -->
+    <section id="panel-phase-1" class="panel" role="tabpanel" data-phase="1">
+      <div class="phase-header" style="--phase-color: #4361ee">
+        <div class="phase-header-meta">
+          <span class="phase-tag">Vòng 1</span>
+          <span class="phase-crisp-label">CRISP-DM: Data Understanding + Data Preparation</span>
+        </div>
+        <h2 class="phase-title">Descriptive Analysis</h2>
+        <p class="phase-desc">
+          Khám phá và làm sạch dữ liệu từ MainLog và DetailsTransaction. Window-based merge
+          bằng <code>merge_asof(direction='forward')</code>, xây dựng 6 features audit.
+        </p>
+      </div>
+      <div class="kpi-row" id="kpis-phase-1"><!-- JS inject --></div>
+      <div class="charts-grid" id="charts-phase-1"><!-- JS inject --></div>
+    </section>
+
+    <!-- ─── PANEL PHASE 2 ─────────────────────────────────────────────────── -->
+    <section id="panel-phase-2" class="panel" role="tabpanel" data-phase="2">
+      <div class="phase-header" style="--phase-color: #f4845f">
+        <div class="phase-header-meta">
+          <span class="phase-tag">Vòng 2</span>
+          <span class="phase-crisp-label">CRISP-DM: Modeling + Evaluation</span>
+        </div>
+        <h2 class="phase-title">Diagnostic — K-Means Clustering</h2>
+        <p class="phase-desc">
+          Phân cụm K-Means (k=4) trên 5 features ca làm việc. RobustScaler để xử lý outlier.
+          PCA 2D để visualize cluster boundary. Elbow + Silhouette để chọn k tối ưu.
+        </p>
+      </div>
+      <div class="kpi-row" id="kpis-phase-2"><!-- JS inject --></div>
+      <div class="charts-grid" id="charts-phase-2"><!-- JS inject --></div>
+    </section>
+
+    <!-- ─── PANEL PHASE 3 ─────────────────────────────────────────────────── -->
+    <section id="panel-phase-3" class="panel" role="tabpanel" data-phase="3">
+      <div class="phase-header" style="--phase-color: #7b5ea7">
+        <div class="phase-header-meta">
+          <span class="phase-tag">Vòng 3</span>
+          <span class="phase-crisp-label">CRISP-DM: Data Prep + Modeling (nhánh độc lập)</span>
+        </div>
+        <h2 class="phase-title">Customer Pattern Mining</h2>
+        <p class="phase-desc">
+          Text mining 101 ghi chú khách hàng. Phân loại phản hồi theo chủ đề.
+          IQR-based anomaly detection trên số lượng order. Timeline bất thường.
+        </p>
+      </div>
+      <div class="kpi-row" id="kpis-phase-3"><!-- JS inject --></div>
+      <div class="charts-grid" id="charts-phase-3"><!-- JS inject --></div>
+    </section>
+
+    <!-- ─── PANEL PHASE 4 ─────────────────────────────────────────────────── -->
+    <section id="panel-phase-4" class="panel" role="tabpanel" data-phase="4">
+      <div class="phase-header" style="--phase-color: #2ec4b6">
+        <div class="phase-header-meta">
+          <span class="phase-tag">Vòng 4</span>
+          <span class="phase-crisp-label">CRISP-DM: Evaluation + Deployment</span>
+        </div>
+        <h2 class="phase-title">Prescriptive — Rule Engine</h2>
+        <p class="phase-desc">
+          Rule Engine 3 tầng dựa trên kết quả clustering. R1 → R2 → R3 độc lập nhau.
+          Mỗi rule gắn với khuyến nghị hành động cụ thể cho người quản lý.
+        </p>
+      </div>
+      <div class="kpi-row" id="kpis-phase-4"><!-- JS inject --></div>
+      <div class="charts-grid" id="charts-phase-4"><!-- JS inject --></div>
+    </section>
+
+  </main>
+
+  <!-- ─── LIGHTBOX — phóng to ảnh khi click ────────────────────────────── -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Chart viewer" hidden>
+    <button class="lightbox-close" id="lightbox-close" aria-label="Đóng">&times;</button>
+    <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+    <div class="lightbox-content">
+      <img id="lightbox-img" src="" alt="Chart enlarged" />
+      <p id="lightbox-caption" class="lightbox-caption"></p>
+    </div>
+  </div>
+
+  <!-- Toast notification khi click node không có mapping -->
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <script src="/static/js/script.js"></script>
+</body>
+</html>
