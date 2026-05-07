@@ -98,35 +98,38 @@
         </div>
         <br>
 
-        <div class="context-grid">
-            <div class="context-card">
-            <h3 class="context-title">🏢 Bối cảnh dự án (Business Context)</h3>
-            <p>Dự án xuất phát từ hệ thống <strong>POS Apps Script</strong> thực tế do nhóm tự phát triển và triển khai cho khách hàng. Trong quá trình vận hành, sự sai lệch giữa "tiền máy tính" và "tiền thực tế" là vấn đề nhức nhối nhất của nhà quản lý.</p>
-            </div>
-            <div class="context-card">
-            <h3 class="context-title">🎯 Mục tiêu nghiệp vụ</h3>
-            <p>Nhận diện các mẫu sai lệch tài chính, phân loại ca làm việc rủi ro cao và hiểu rõ hành vi khách hàng thông qua ghi chú (notes) để tối ưu hóa quy trình kiểm soát nội bộ.</p>
+        <div class="project-overview-section" style="margin-bottom: 48px;">
+            <h3 class="section-title">📖 Khởi nguồn Dự án (Project Overview)</h3>
+            <div class="context-grid">
+                <div class="context-card">
+                    <h3 class="context-title">🏢 Bối cảnh (Business Context)</h3>
+                    <p>Dự án xuất phát từ hệ thống <strong>POS Apps Script</strong> thực tế do nhóm tự phát triển và triển khai cho khách hàng. Vấn đề nhức nhối nhất trong vận hành là <strong>hiện tượng lệch két</strong> — sự chênh lệch giữa tổng doanh thu do máy tính toán và số tiền mặt vật lý thực tế do nhân viên tự đếm và nhập tay vào cuối ca.</p>
+                </div>
+                <div class="context-card">
+                    <h3 class="context-title">🎯 Mục tiêu nghiệp vụ</h3>
+                    <p>Nhận diện các hình thái sai lệch tài chính, phân loại ca làm việc có rủi ro cao và thấu hiểu hành vi khách hàng thông qua ghi chú (notes) để đưa ra bộ quy tắc cảnh báo, tối ưu hóa quy trình kiểm soát nội bộ.</p>
+                </div>
             </div>
         </div>
 
         <div class="data-origin-section">
-        <h3 class="section-title">📊 Nguồn dữ liệu gốc (Raw Data)</h3>
-        <div class="data-cards">
-            <div class="data-item">
-            <div class="data-icon">📋</div>
-            <div class="data-info">
-                <strong>Nhật ký chính (MainLog.csv)</strong>
-                <span>242 bản ghi chốt ca làm việc. Chứa <code>Vết thời gian</code>, <code>Thông tin về tổng doanh thu</code>, <code>Số tiền mặt/chuyển khoản được máy tính tính toán</code>, <code>Nhận dạng ca sáng/chiều</code> và <code>Số tiền thực tế thủ quỹ kiểm đếm</code>.</span>
+            <h3 class="section-title">📊 Nguồn dữ liệu gốc (Raw Data)</h3>
+            <div class="data-cards-grid">
+                <div class="data-item">
+                    <div class="data-icon">📋</div>
+                    <div class="data-info">
+                        <strong>Nhật ký chính (MainLog.csv)</strong>
+                        <span>242 bản ghi chốt ca làm việc. Chứa <code>Vết thời gian</code>, <code>Tổng doanh thu</code>, <code>Tiền mặt/Chuyển khoản theo máy</code>, <code>Ca sáng/chiều</code> và quan trọng nhất là <code>Số tiền thực tế thủ quỹ kiểm đếm</code>.</span>
+                    </div>
+                </div>
+                <div class="data-item">
+                    <div class="data-icon">🛒</div>
+                    <div class="data-info">
+                        <strong>Chi tiết hóa đơn (DetailsTransaction.csv)</strong>
+                        <span>5.412 giao dịch chi tiết. Chứa <code>Vết thời gian</code>, <code>Giá trị đơn</code>, <code>Phương thức thanh toán</code>, và cột dữ liệu phi cấu trúc vô giá: <code>Ghi chú</code> của nhân viên.</span>
+                    </div>
+                </div>
             </div>
-            </div>
-            <div class="data-item">
-            <div class="data-icon">🛒</div>
-            <div class="data-info">
-                <strong>Chi tiết hóa đơn (DetailsTransaction.csv)</strong>
-                <span>5.412 giao dịch chi tiết. Chứa <code>Vết thời gian</code>, <code>Tổng doanh thu</code>, <code>Phương thức thanh toán (Tiền mặt/Chuyển khoản)</code>, và quan trọng nhất là cột <code>Ghi chú</code> của nhân viên.</span>
-            </div>
-            </div>
-        </div>
         </div>
 
         <div class="crisp-diagram-container">
