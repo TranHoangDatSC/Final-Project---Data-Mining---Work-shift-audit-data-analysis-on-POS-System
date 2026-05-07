@@ -6,7 +6,7 @@
   <title>POS Audit — Data Mining Report | HCMUE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/static/css/style.css" />
 </head>
 <body>
@@ -91,154 +91,182 @@
 
     <!-- ─── PANEL HOME: CRISP-DM Diagram ─────────────────────────────────── -->
     <section id="panel-home" class="panel active" role="tabpanel">
-    <div class="panel-hero">
-        <h2 class="panel-hero-title">Kiểm toán dòng tiền POS</h2>
-        <br>
-        <p class="panel-hero-sub">Ứng dụng Khai thác dữ liệu trong việc nhận diện sai lệch tài chính và hành vi khách hàng.</p>
-    </div>
-    <br>
-
-    <div class="context-grid">
-        <div class="context-card">
-        <h3 class="context-title">🏢 Bối cảnh dự án (Business Context)</h3>
-        <p>Dự án xuất phát từ hệ thống <strong>POS Apps Script</strong> thực tế do nhóm tự phát triển và triển khai cho khách hàng. Trong quá trình vận hành, sự sai lệch giữa "tiền máy tính" và "tiền thực tế" là vấn đề nhức nhối nhất của nhà quản lý.</p>
+        <div class="panel-hero">
+            <h2 class="panel-hero-title">Kiểm toán dòng tiền POS</h2>
+            <br>
+            <p class="panel-hero-sub">Nhận diện sai lệch tài chính và hành vi khách hàng.</p>
         </div>
         <br>
-        <div class="context-card">
-        <h3 class="context-title">🎯 Mục tiêu nghiệp vụ</h3>
-        <p>Nhận diện các mẫu sai lệch tài chính, phân loại ca làm việc rủi ro cao và hiểu rõ hành vi khách hàng thông qua ghi chú (notes) để tối ưu hóa quy trình kiểm soát nội bộ.</p>
-        </div>
-        <br>
-    </div>
 
-    <div class="data-origin-section">
+        <div class="context-grid">
+            <div class="context-card">
+            <h3 class="context-title">🏢 Bối cảnh dự án (Business Context)</h3>
+            <p>Dự án xuất phát từ hệ thống <strong>POS Apps Script</strong> thực tế do nhóm tự phát triển và triển khai cho khách hàng. Trong quá trình vận hành, sự sai lệch giữa "tiền máy tính" và "tiền thực tế" là vấn đề nhức nhối nhất của nhà quản lý.</p>
+            </div>
+            <div class="context-card">
+            <h3 class="context-title">🎯 Mục tiêu nghiệp vụ</h3>
+            <p>Nhận diện các mẫu sai lệch tài chính, phân loại ca làm việc rủi ro cao và hiểu rõ hành vi khách hàng thông qua ghi chú (notes) để tối ưu hóa quy trình kiểm soát nội bộ.</p>
+            </div>
+        </div>
+
+        <div class="data-origin-section">
         <h3 class="section-title">📊 Nguồn dữ liệu gốc (Raw Data)</h3>
         <div class="data-cards">
-        <div class="data-item">
-            <div class="data-icon">📋<strong>Nhật ký chính (MainLog.csv)</strong></div>
+            <div class="data-item">
+            <div class="data-icon">📋</div>
             <div class="data-info">
-            <span>242 bản ghi chốt ca làm việc. Chứa <code>Vết thời gian</code>, <code>Thông tin về tổng doanh thu</code>, <code>Số tiền mặt/chuyển khoản được máy tính tính toán</code>, <code>Nhận dạng ca sáng/chiều</code> và <code>Số tiền thực tế thủ quỹ kiểm đếm</code>.</span>
+                <strong>Nhật ký chính (MainLog.csv)</strong>
+                <span>242 bản ghi chốt ca làm việc. Chứa <code>Vết thời gian</code>, <code>Thông tin về tổng doanh thu</code>, <code>Số tiền mặt/chuyển khoản được máy tính tính toán</code>, <code>Nhận dạng ca sáng/chiều</code> và <code>Số tiền thực tế thủ quỹ kiểm đếm</code>.</span>
+            </div>
+            </div>
+            <div class="data-item">
+            <div class="data-icon">🛒</div>
+            <div class="data-info">
+                <strong>Chi tiết hóa đơn (DetailsTransaction.csv)</strong>
+                <span>5.412 giao dịch chi tiết. Chứa <code>Vết thời gian</code>, <code>Tổng doanh thu</code>, <code>Phương thức thanh toán (Tiền mặt/Chuyển khoản)</code>, và quan trọng nhất là cột <code>Ghi chú</code> của nhân viên.</span>
+            </div>
             </div>
         </div>
-        <br>
-        <div class="data-item">
-            <div class="data-icon">🛒<strong>Chi tiết hóa đơn (DetailsTransaction.csv)</strong></div>
-            <div class="data-info">
-            <span>5.412 giao dịch chi tiết. Chứa <code>Vết thời gian</code>, <code>Tổng doanh thu</code>, <code>Phương thức thanh toán (Tiền mặt/Chuyển khoản)</code>, và quan trọng nhất là cột <code>Ghi chú</code> của nhân viên.</span>
+        </div>
+
+        <div class="crisp-diagram-container">
+            <h3 class="section-title" style="text-align: center; margin-bottom: 40px;">Quy trình CRISP-DM Pipeline</h3>
+            
+            <div class="crisp-diagram" role="img" aria-label="CRISP-DM lifecycle diagram">
+            <div class="crisp-ring crisp-ring--outer"></div>
+            <div class="crisp-ring crisp-ring--inner"></div>
+            <div class="crisp-center">
+                <div class="crisp-center-icon">🗄</div>
+                <div class="crisp-center-label">DATA</div>
+            </div>
+
+            <button class="crisp-node crisp-node--top" data-target="" data-phase-name="Business Understanding" title="Business Understanding — Hiểu bài toán kinh doanh">
+                <span class="node-number">01</span>
+                <span class="node-icon">🎯</span>
+                <span class="node-label">Business<br>Understanding</span>
+                <span class="node-badge">Nền tảng</span>
+            </button>
+
+            <button class="crisp-node crisp-node--top-right" data-target="phase-1" data-phase-name="Data Understanding" title="Click để xem Phase 1 — Descriptive Analysis">
+                <span class="node-number">02</span>
+                <span class="node-icon">🔍</span>
+                <span class="node-label">Data<br>Understanding</span>
+                <span class="node-badge node-badge--blue">Vòng 1</span>
+            </button>
+
+            <button class="crisp-node crisp-node--bottom-right" data-target="phase-1" data-phase-name="Data Preparation" title="Click để xem Phase 1 — Data Preparation">
+                <span class="node-number">03</span>
+                <span class="node-icon">🔧</span>
+                <span class="node-label">Data<br>Preparation</span>
+                <span class="node-badge node-badge--blue">Vòng 1</span>
+            </button>
+
+            <button class="crisp-node crisp-node--bottom" data-target="phase-2" data-phase-name="Modeling" title="Click để xem Phase 2 — K-Means Clustering">
+                <span class="node-number">04</span>
+                <span class="node-icon">🤖</span>
+                <span class="node-label">Modeling</span>
+                <span class="node-badge node-badge--orange">Vòng 2 & 3</span>
+            </button>
+
+            <button class="crisp-node crisp-node--bottom-left" data-target="phase-4" data-phase-name="Evaluation" title="Click để xem Phase 4 — Rule Engine">
+                <span class="node-number">05</span>
+                <span class="node-icon">📊</span>
+                <span class="node-label">Evaluation</span>
+                <span class="node-badge node-badge--teal">Vòng 4</span>
+            </button>
+
+            <button class="crisp-node crisp-node--top-left" data-target="phase-4" data-phase-name="Deployment" title="Click để xem Phase 4 — Prescriptive">
+                <span class="node-number">06</span>
+                <span class="node-icon">🚀</span>
+                <span class="node-label">Deployment</span>
+                <span class="node-badge node-badge--teal">Vòng 4</span>
+            </button>
+
+            <svg class="crisp-arrows" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <defs>
+                <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                    <path d="M0,0 L0,6 L6,3 z" fill="var(--accent)" opacity="0.6"/>
+                </marker>
+                </defs>
+                <path d="M 200 42  A 158 158 0 0 1 335 112" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+                <path d="M 340 125 A 158 158 0 0 1 340 275" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+                <path d="M 328 285 A 158 158 0 0 1 200 358" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+                <path d="M 185 358 A 158 158 0 0 1 58 282" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+                <path d="M 55 268  A 158 158 0 0 1 60 128" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+                <path d="M 72 115  A 158 158 0 0 1 196 40" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+            </svg>
             </div>
         </div>
+
+        <div class="home-cards">
+            <button class="home-card" data-target="phase-1">
+            <span class="hcard-num">01</span>
+            <span class="hcard-color" style="background:#4361ee"></span>
+            <div class="hcard-body">
+                <strong>Descriptive</strong>
+                <span>EDA · Feature Engineering · Pipeline</span>
+            </div>
+            <span class="hcard-arrow">→</span>
+            </button>
+            <button class="home-card" data-target="phase-2">
+            <span class="hcard-num">02</span>
+            <span class="hcard-color" style="background:#f4845f"></span>
+            <div class="hcard-body">
+                <strong>Diagnostic</strong>
+                <span>K-Means · PCA · Silhouette</span>
+            </div>
+            <span class="hcard-arrow">→</span>
+            </button>
+            <button class="home-card" data-target="phase-3">
+            <span class="hcard-num">03</span>
+            <span class="hcard-color" style="background:#7b5ea7"></span>
+            <div class="hcard-body">
+                <strong>Customer Pattern</strong>
+                <span>Text Mining · Anomaly Detection</span>
+            </div>
+            <span class="hcard-arrow">→</span>
+            </button>
+            <button class="home-card" data-target="phase-4">
+            <span class="hcard-num">04</span>
+            <span class="hcard-color" style="background:#2ec4b6"></span>
+            <div class="hcard-body">
+                <strong>Prescriptive</strong>
+                <span>Rule Engine · Khuyến nghị</span>
+            </div>
+            <span class="hcard-arrow">→</span>
+            </button>
         </div>
-        <br>
-    </div>
-
-    <div class="crisp-diagram-container">
-        <h3 class="section-title" style="text-align: center; margin-bottom: 40px;">Quy trình CRISP-DM Pipeline</h3>
-        
-        <div class="crisp-diagram" role="img" aria-label="CRISP-DM lifecycle diagram">
-        <div class="crisp-ring crisp-ring--outer"></div>
-        <div class="crisp-ring crisp-ring--inner"></div>
-        <div class="crisp-center">
-            <div class="crisp-center-icon">🗄</div>
-            <div class="crisp-center-label">DATA</div>
-        </div>
-
-        <button class="crisp-node crisp-node--top" data-target="" data-phase-name="Business Understanding" title="Business Understanding — Hiểu bài toán kinh doanh">
-            <span class="node-number">01</span>
-            <span class="node-icon">🎯</span>
-            <span class="node-label">Business<br>Understanding</span>
-            <span class="node-badge">Nền tảng</span>
-        </button>
-
-        <button class="crisp-node crisp-node--top-right" data-target="phase-1" data-phase-name="Data Understanding" title="Click để xem Phase 1 — Descriptive Analysis">
-            <span class="node-number">02</span>
-            <span class="node-icon">🔍</span>
-            <span class="node-label">Data<br>Understanding</span>
-            <span class="node-badge node-badge--blue">Vòng 1</span>
-        </button>
-
-        <button class="crisp-node crisp-node--bottom-right" data-target="phase-1" data-phase-name="Data Preparation" title="Click để xem Phase 1 — Data Preparation">
-            <span class="node-number">03</span>
-            <span class="node-icon">🔧</span>
-            <span class="node-label">Data<br>Preparation</span>
-            <span class="node-badge node-badge--blue">Vòng 1</span>
-        </button>
-
-        <button class="crisp-node crisp-node--bottom" data-target="phase-2" data-phase-name="Modeling" title="Click để xem Phase 2 — K-Means Clustering">
-            <span class="node-number">04</span>
-            <span class="node-icon">🤖</span>
-            <span class="node-label">Modeling</span>
-            <span class="node-badge node-badge--orange">Vòng 2 & 3</span>
-        </button>
-
-        <button class="crisp-node crisp-node--bottom-left" data-target="phase-4" data-phase-name="Evaluation" title="Click để xem Phase 4 — Rule Engine">
-            <span class="node-number">05</span>
-            <span class="node-icon">📊</span>
-            <span class="node-label">Evaluation</span>
-            <span class="node-badge node-badge--teal">Vòng 4</span>
-        </button>
-
-        <button class="crisp-node crisp-node--top-left" data-target="phase-4" data-phase-name="Deployment" title="Click để xem Phase 4 — Prescriptive">
-            <span class="node-number">06</span>
-            <span class="node-icon">🚀</span>
-            <span class="node-label">Deployment</span>
-            <span class="node-badge node-badge--teal">Vòng 4</span>
-        </button>
-
-        <svg class="crisp-arrows" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <defs>
-            <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
-                <path d="M0,0 L0,6 L6,3 z" fill="var(--accent)" opacity="0.6"/>
-            </marker>
-            </defs>
-            <path d="M 200 42  A 158 158 0 0 1 335 112" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-            <path d="M 340 125 A 158 158 0 0 1 340 275" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-            <path d="M 328 285 A 158 158 0 0 1 200 358" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-            <path d="M 185 358 A 158 158 0 0 1 58 282" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-            <path d="M 55 268  A 158 158 0 0 1 60 128" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-            <path d="M 72 115  A 158 158 0 0 1 196 40" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-        </svg>
-        </div>
-    </div>
-
-    <div class="home-cards">
-        <button class="home-card" data-target="phase-1">
-        <span class="hcard-num">01</span>
-        <span class="hcard-color" style="background:#4361ee"></span>
-        <div class="hcard-body">
-            <strong>Descriptive</strong>
-            <span>EDA · Feature Engineering · Pipeline</span>
-        </div>
-        <span class="hcard-arrow">→</span>
-        </button>
-        <button class="home-card" data-target="phase-2">
-        <span class="hcard-num">02</span>
-        <span class="hcard-color" style="background:#f4845f"></span>
-        <div class="hcard-body">
-            <strong>Diagnostic</strong>
-            <span>K-Means · PCA · Silhouette</span>
-        </div>
-        <span class="hcard-arrow">→</span>
-        </button>
-        <button class="home-card" data-target="phase-3">
-        <span class="hcard-num">03</span>
-        <span class="hcard-color" style="background:#7b5ea7"></span>
-        <div class="hcard-body">
-            <strong>Customer Pattern</strong>
-            <span>Text Mining · Anomaly Detection</span>
-        </div>
-        <span class="hcard-arrow">→</span>
-        </button>
-        <button class="home-card" data-target="phase-4">
-        <span class="hcard-num">04</span>
-        <span class="hcard-color" style="background:#2ec4b6"></span>
-        <div class="hcard-body">
-            <strong>Prescriptive</strong>
-            <span>Rule Engine · Khuyến nghị</span>
-        </div>
-        <span class="hcard-arrow">→</span>
-        </button>
-    </div>
     </section>
+
+    <section id="panel-about" class="panel" role="tabpanel" data-target="about">
+        <div class="panel-hero">
+            <h2 class="panel-hero-title">Đội ngũ thực hiện</h2>
+            <p class="panel-hero-sub">Nhóm sinh viên Khoa Công nghệ Thông tin — Trường Đại học Sư phạm TP.HCM</p>
+        </div>
+
+        <div class="team-grid">
+            <div class="team-card">
+            <img src="/static/images/staff/minh.png" alt="Võ Văn Minh" class="team-img" onerror="this.src='https://ui-avatars.com/api/?name=Minh&background=f4845f&color=fff&size=150'">
+            <h3 class="team-name">Võ Văn Minh</h3>
+            <p class="team-role">MSSV: 50.01.104.090</p>
+            <p class="team-desc"><strong>Data Analyst</strong><br>Thực hiện Vòng 3 (Khai phá hành vi khách hàng qua Text Mining) và Vòng 4 (Xây dựng logic tự động cho Hệ thống Luật - Rule Engine).</p>
+            </div>
+
+            <div class="team-card leader">
+            <img src="/static/images/staff/dat.png" alt="Trần Hoàng Đạt" class="team-img" onerror="this.src='https://ui-avatars.com/api/?name=Dat&background=4361ee&color=fff&size=150'">
+            <h3 class="team-name">Trần Hoàng Đạt</h3>
+            <p class="team-role">MSSV: 49.01.104.030 • Trưởng nhóm</p>
+            <p class="team-desc"><strong>Lead Data Scientist</strong><br>Thiết kế luồng Dữ liệu (Pipeline), thực hiện Vòng 1 (EDA) và xây dựng mô hình Học máy K-Means ở Vòng 2 để phân cụm rủi ro.</p>
+            </div>
+
+            <div class="team-card">
+            <img src="/static/images/staff/thai.png" alt="Nguyễn Trần Bảo Thái" class="team-img" onerror="this.src='https://ui-avatars.com/api/?name=Thai&background=2ec4b6&color=fff&size=150'">
+            <h3 class="team-name">Nguyễn Trần Bảo Thái</h3>
+            <p class="team-role">MSSV: 49.01.104.133</p>
+            <p class="team-desc"><strong>Frontend / Web Developer</strong><br>Lập trình toàn bộ giao diện Web App báo cáo trực quan (HTML/CSS/JS) và đóng gói triển khai hệ thống (Docker Deployment).</p>
+            </div>
+        </div>
+        </section>
 
     <!-- ─── PANEL PHASE 1 ─────────────────────────────────────────────────── -->
     <section id="panel-phase-1" class="panel" role="tabpanel" data-phase="1">
@@ -334,54 +362,309 @@
 
     <!-- ─── PANEL PHASE 2 ─────────────────────────────────────────────────── -->
     <section id="panel-phase-2" class="panel" role="tabpanel" data-phase="2">
-      <div class="phase-header" style="--phase-color: #f4845f">
-        <div class="phase-header-meta">
-          <span class="phase-tag">Vòng 2</span>
-          <span class="phase-crisp-label">CRISP-DM: Modeling + Evaluation</span>
+        <div class="phase-header" style="--phase-color: #f4845f">
+            <div class="phase-header-meta">
+            <span class="phase-tag">Vòng 2</span>
+            <span class="phase-crisp-label">CRISP-DM: Mô hình hóa (Modeling) + Đánh giá (Evaluation)</span>
+            </div>
+            <h2 class="phase-title">Chẩn đoán Rủi ro (Diagnostic — K-Means Clustering)</h2>
+            <p class="phase-desc">
+            Sử dụng thuật toán học máy không giám sát K-Means để tự động gom nhóm các ca làm việc có hành vi giống nhau. 
+            Để tránh việc 2 ca có số tiền lệch quá khổng lồ làm "mù" thuật toán, nhóm đã dùng bộ lọc chống nhiễu <code>RobustScaler</code> thay cho bộ lọc thông thường.
+            </p>
         </div>
-        <h2 class="phase-title">Diagnostic — K-Means Clustering</h2>
-        <p class="phase-desc">
-          Phân cụm K-Means (k=4) trên 5 features ca làm việc. RobustScaler để xử lý outlier.
-          PCA 2D để visualize cluster boundary. Elbow + Silhouette để chọn k tối ưu.
-        </p>
-      </div>
-      <div class="kpi-row" id="kpis-phase-2"><!-- JS inject --></div>
-      <div class="charts-grid" id="charts-phase-2"><!-- JS inject --></div>
-    </section>
+        
+        <div class="kpi-row" id="kpis-phase-2"></div>
+
+        <div class="report-content">
+            
+            <div class="report-section">
+            <h3 class="section-title">1. Bài toán: Chia làm mấy nhóm là hợp lý nhất?</h3>
+            <div class="insight-block">
+                <div class="insight-text">
+                <p><strong>Vấn đề:</strong> Máy tính không tự biết nên chia các ca làm việc thành bao nhiêu nhóm. Chúng ta phải dùng 2 phương pháp toán học để tìm ra "con số vàng".</p>
+                <ul class="insight-list">
+                    <li><strong>Biểu đồ Khuỷu tay (Elbow):</strong> Đo lường mức độ "chặt chẽ" của các nhóm. Ta tìm điểm gãy giống hình nếp gấp khuỷu tay — nơi mà nếu chia thêm nhóm cũng không mang lại nhiều ý nghĩa nữa.</li>
+                    <li><strong>Đánh giá Hệ số bóng (Silhouette):</strong> Chấm điểm xem các nhóm có bị "trộn lẫn" vào nhau không. Điểm càng cao càng tốt.</li>
+                    <li><span class="highlight-text">Quyết định:</span> Tại vị trí <strong>k = 4</strong>, biểu đồ Silhouette đạt đỉnh cao nhất. Nhóm quyết định phân toàn bộ các ca làm việc thành 4 nhóm hành vi rủi ro.</li>
+                </ul>
+                </div>
+                <div class="insight-img" style="display: flex; gap: 12px; flex-direction: column;">
+                <div class="chart-card">
+                    <img src="/static/images/phase2/elbow-curve.png" alt="Biểu đồ Khuỷu tay" onclick="openLightbox(this.src, 'Biểu đồ Khuỷu tay (Elbow Method)')">
+                </div>
+                <div class="chart-card">
+                    <img src="/static/images/phase2/silhouette-analysis.png" alt="Phân tích Hệ số Bóng Silhouette" onclick="openLightbox(this.src, 'Đánh giá Silhouette: Đỉnh cao nhất nằm ở vị trí k=4')">
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="report-section">
+            <h3 class="section-title">2. Đọc "ADN" của 4 Nhóm rủi ro (Hồ sơ Cụm)</h3>
+            <div class="insight-block reverse">
+                <div class="insight-text">
+                <p><strong>Mục đích:</strong> Phân tích xem 4 nhóm này khác nhau ở điểm nào dựa trên 5 đặc trưng: Mức lệch két tuyệt đối (<code>Cash_Diff</code>), Tổng doanh thu (<code>total_revenue</code>), Số lượng hóa đơn (<code>bill_count</code>), Giá trị đơn trung bình (<code>Avg_Bill_Value</code>), và Tỷ lệ lệch két so với quy mô ca (<code>CashDiff_Ratio</code>).</p>
+                <ul class="insight-list">
+                    <li><strong>Cụm C0 (Dư két cao):</strong> Tỷ lệ lệch két cực kỳ lớn. Nhóm này đại diện cho hành vi nhân viên không nộp tiền chốt ca đúng hạn.</li>
+                    <li><strong>Cụm C1 (Bình thường):</strong> Mọi chỉ số đều nằm ngay giữa tâm biểu đồ mạng nhện. Đây là các ca làm việc chuẩn mực, an toàn.</li>
+                    <li><strong>Cụm C2 (Tích lũy dị biệt):</strong> Chỉ có đúng 2 ca. Đặc điểm là Tổng doanh thu siêu thấp nhưng tiền trong két lại khổng lồ. <strong>Cảnh báo đỏ: Cần kiểm tra thủ công ngay lập tức!</strong></li>
+                    <li><strong>Cụm C3 (Tải siêu cao):</strong> Điểm nhọn vươn rất dài ở Tổng doanh thu và Số lượng hóa đơn. Đây là các ca quá đông khách, nhân viên áp lực cao nên rất dễ xảy ra tình trạng thối nhầm tiền dẫn đến <em>âm két (hụt tiền)</em>.</li>
+                </ul>
+                </div>
+                <div class="insight-img" style="display: flex; gap: 12px; flex-direction: column;">
+                <div class="chart-card">
+                    <img src="/static/images/phase2/radar-chart.png" alt="Biểu đồ mạng nhện Radar Chart" onclick="openLightbox(this.src, 'Radar Chart: Hồ sơ đặc tính của 4 tâm cụm')">
+                </div>
+                <div style="display: flex; gap: 12px;">
+                    <div class="chart-card" style="flex: 1;">
+                    <img src="/static/images/phase2/heatmap-centroids.png" alt="Bản đồ nhiệt Centroids" onclick="openLightbox(this.src, 'Heatmap: Ma trận các giá trị chuẩn hóa của Tâm cụm')">
+                    </div>
+                    <div class="chart-card" style="flex: 1;">
+                    <img src="/static/images/phase2/boxplot-3.png" alt="Boxplot phân tán đặc trưng" onclick="openLightbox(this.src, 'Boxplot: Phân bố chi tiết của các đặc trưng chính theo cụm')">
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="report-section">
+            <h3 class="section-title">3. Hình dung không gian đa chiều (PCA & Scatter Ratio)</h3>
+            <div class="insight-block">
+                <div class="insight-text">
+                <p><strong>Mục đích:</strong> Dữ liệu có 5 đặc trưng nghĩa là nó đang tồn tại trong một "không gian 5 chiều". Con người không thể nhìn được 5 chiều, nên ta phải dùng thuật toán <strong>PCA (Phân tích Thành phần Chính)</strong> để "ép dẹp" nó xuống thành bản đồ phẳng 2 chiều.</p>
+                <ul class="insight-list">
+                    <li>Thuật toán PCA hoạt động giống như việc bạn <em>chiếu một bóng đèn vào vật thể 5 chiều và in cái bóng của nó lên tường (2 chiều)</em>.</li>
+                    <li>Nhìn vào biểu đồ PCA (hình trên), ta thấy 4 cụm được thuật toán K-Means chia tách rất rõ ràng, không bị dính chùm vào nhau.</li>
+                    <li>Biểu đồ Scatter tỷ lệ (hình dưới) lại một lần nữa khẳng định: Rủi ro lệch tiền không liên quan đến việc bán được nhiều hay ít hàng, mà phụ thuộc vào thói quen chốt két của ca làm việc đó.</li>
+                </ul>
+                </div>
+                <div class="insight-img" style="display: flex; gap: 12px; flex-direction: column;">
+                <div class="chart-card">
+                    <img src="/static/images/phase2/PCA2D-scatter-feature.png" alt="Biểu đồ phân tán PCA 2D" onclick="openLightbox(this.src, 'PCA 2D: Rút gọn 5 chiều dữ liệu xuống mặt phẳng 2D để trực quan hóa')">
+                </div>
+                <div class="chart-card">
+                    <img src="/static/images/phase2/scatter-ratio.png" alt="Phân tán tỷ lệ lệch két" onclick="openLightbox(this.src, 'Scatter Ratio: So sánh tương quan Doanh thu và Tỷ lệ lệch két')">
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="report-section">
+            <h3 class="section-title">4. Phân tích Thói quen theo Thời gian & Ca làm việc</h3>
+            <div class="insight-block reverse">
+                <div class="insight-text">
+                <p><strong>Mục đích:</strong> Truy tìm xem các ca rủi ro cao thường rơi vào thời điểm nào trong ngày.</p>
+                <ul class="insight-list">
+                    <li><span class="highlight-text">Phát hiện bất ngờ:</span> Cụm C0 (Dư két cao) 100% xảy ra vào <strong>Ca Chiều</strong>. Lý do là Ca Sáng làm xong thường làm biếng mang tiền đi cất, để dồn lại trong két giao luôn cho Ca Chiều.</li>
+                    <li>Ngược lại, Cụm C3 (Tải siêu cao - dễ hụt tiền) lại chiếm áp đảo ở <strong>Ca Sáng (>60%)</strong>. Chứng tỏ buổi sáng cửa hàng cực kỳ bận rộn, áp lực thanh toán lớn.</li>
+                    <li>Biểu đồ tiến trình thời gian (Timeline) cho thấy sự phân bố của 4 cụm diễn ra liên tục theo các tháng, không có hiện tượng co cụm bất thường vào một mùa nào.</li>
+                </ul>
+                </div>
+                <div class="insight-img" style="display: flex; gap: 12px; flex-direction: column;">
+                <div class="chart-card">
+                    <img src="/static/images/phase2/moring-afternoon-shift.png" alt="Tỷ lệ Ca Sáng và Ca Chiều" onclick="openLightbox(this.src, 'Phân bố rủi ro theo Ca Sáng và Ca Chiều')">
+                </div>
+                <div class="chart-card">
+                    <img src="/static/images/phase2/cluster-distribution-overtime.png" alt="Phân phối cụm theo thời gian" onclick="openLightbox(this.src, 'Tiến trình xuất hiện của 4 cụm theo trục thời gian')">
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="summary-box">
+            <h3 class="summary-title">💡 KẾT LUẬN VÒNG 2 & ĐẦU RA SẢN PHẨM</h3>
+            <div class="summary-grid">
+                <div class="summary-item">
+                <strong>✅ Mô hình Máy học (Machine Learning):</strong>
+                <p>Thuật toán K-Means đã "lột mặt nạ" thành công 236 ca làm việc, chia chúng thành 4 nhóm hành vi hoàn toàn độc lập với các nguyên nhân rủi ro khác nhau (từ an toàn, đông khách, đến lười nộp tiền).</p>
+                </div>
+                <div class="summary-item">
+                <strong>✅ Diễn giải Thuật toán (XAI):</strong>
+                <p>Bằng cách kết hợp Radar Chart và PCA, nhóm đã chứng minh được tính minh bạch và logic toán học của mô hình thay vì chỉ dùng K-Means như một "hộp đen" bí ẩn.</p>
+                </div>
+                <div class="summary-item">
+                <strong>📋 Phân tích Vận hành (Operations):</strong>
+                <p>Lỗi "nhầm loại tiền" hoàn toàn không xảy ra. Lỗi thất thoát thực sự (âm tiền) đến từ việc Ca Sáng quá tải. Lỗi dư tiền ảo (dương tiền) đến từ việc Ca Sáng bàn giao luôn tiền cho Ca Chiều.</p>
+                </div>
+                <div class="summary-item" style="background: rgba(46, 196, 182, 0.15); border-color: #2ec4b6;">
+                <strong>📦 ĐẦU RA SẢN PHẨM (OUTPUT):</strong>
+                <p>Sinh ra tệp <code>Clustered_Shifts.csv</code>. Tệp dữ liệu này giữ nguyên các ca làm việc nhưng <strong>được dán thêm nhãn Nhóm (C0 đến C3)</strong>. Đây là "nguyên liệu sống còn" để đưa vào Vòng 4 xây dựng Hệ thống Luật cảnh báo tự động (Rule Engine).</p>
+                </div>
+            </div>
+            </div>
+
+        </div>
+        </section>
 
     <!-- ─── PANEL PHASE 3 ─────────────────────────────────────────────────── -->
     <section id="panel-phase-3" class="panel" role="tabpanel" data-phase="3">
-      <div class="phase-header" style="--phase-color: #7b5ea7">
-        <div class="phase-header-meta">
-          <span class="phase-tag">Vòng 3</span>
-          <span class="phase-crisp-label">CRISP-DM: Data Prep + Modeling (nhánh độc lập)</span>
+        <div class="phase-header" style="--phase-color: #7b5ea7">
+            <div class="phase-header-meta">
+            <span class="phase-tag">Vòng 3</span>
+            <span class="phase-crisp-label">CRISP-DM: Chuẩn bị Dữ liệu (Data Prep) + Mô hình hóa (Modeling) — Nhánh Độc Lập</span>
+            </div>
+            <h2 class="phase-title">Khai phá Hành vi Khách hàng (Customer Pattern Mining)</h2>
+            <p class="phase-desc">
+            Thay vì phân tích những con số khô khan, Vòng 3 tập trung "đọc" cột Ghi chú (<code>notes</code>) do nhân viên gõ tay. 
+            Hệ thống tự động làm sạch lỗi chính tả, nhận diện khách quen, và dùng toán học để "bắt quả tang" những lần mua hàng bất thường của họ.
+            </p>
         </div>
-        <h2 class="phase-title">Customer Pattern Mining</h2>
-        <p class="phase-desc">
-          Text mining 101 ghi chú khách hàng. Phân loại phản hồi theo chủ đề.
-          IQR-based anomaly detection trên số lượng order. Timeline bất thường.
-        </p>
-      </div>
-      <div class="kpi-row" id="kpis-phase-3"><!-- JS inject --></div>
-      <div class="charts-grid" id="charts-phase-3"><!-- JS inject --></div>
-    </section>
+        
+        <div class="kpi-row" id="kpis-phase-3"></div>
+
+        <div class="report-content">
+            
+            <div class="report-section">
+            <h3 class="section-title">1. Làm sạch chữ viết tay và Vẽ "Chân dung" Khách quen</h3>
+            <div class="insight-block">
+                <div class="insight-text">
+                <p><strong>Vấn đề:</strong> Nhân viên thu ngân gõ tên khách cực kỳ tùy tiện (Ví dụ: "Ngọc pt", "n9oc pt", "c hải", "chú hải"...). Mô hình ngôn ngữ AI lớn (như PhoBERT) không thể đọc được những chữ viết tắt kiểu chat này, đồng thời số lượng dữ liệu (101 dòng) là quá ít để AI học.</p>
+                <ul class="insight-list">
+                    <li><strong>Giải pháp:</strong> Nhóm áp dụng kỹ thuật <em>Gom nhóm mờ (Fuzzy Grouping)</em>. Hệ thống tự động bỏ dấu tiếng Việt, đưa về chữ in thường, xóa khoảng trắng thừa để gom tất cả các biến thể lỗi chính tả về chung một Mã khách hàng.</li>
+                    <li>Sau khi gom nhóm, biểu đồ cột (bên cạnh) đã vẽ ra thói quen thanh toán của Top 3 khách hàng mua nhiều nhất.</li>
+                    <li><span class="highlight-text">Phát hiện:</span> Mỗi khách có một "tính cách" thanh toán riêng. Khách <strong>"C Trang"</strong> và <strong>"Ngọc PT"</strong> gần như 100% là <em>Thanh toán chuyển khoản</em>. Trong khi đó, khách <strong>"Chú Hải"</strong> lại thích xài <em>Thanh toán tiền mặt</em>.</li>
+                </ul>
+                </div>
+                <div class="chart-card insight-img">
+                <img src="/static/images/phase3/histogram-customer-behaviour.png" alt="Biểu đồ hành vi thanh toán" onclick="openLightbox(this.src, 'Biểu đồ Cột kép: Thói quen sử dụng Tiền mặt vs Chuyển khoản của Khách quen')">
+                </div>
+            </div>
+            </div>
+
+            <div class="report-section">
+            <h3 class="section-title">2. Bắt quả tang Giao dịch "Lạ" (Nhận diện Dị biệt)</h3>
+            <div class="insight-block reverse">
+                <div class="insight-text">
+                <p><strong>Mục đích:</strong> Khi đã biết thói quen của khách, hệ thống sẽ tự động đối chiếu mỗi đơn hàng mới. Nếu nó sai lệch quá mức bình thường, hệ thống sẽ hú còi cảnh báo.</p>
+                <ul class="insight-list">
+                    <li><strong>Bất thường Giá trị (Value Anomaly):</strong> Dùng phép toán <em>Khoảng tứ phân vị (IQR)</em> để tìm ra các đơn mua quá nhiều tiền. Nhìn vào <strong>Biểu đồ Hộp (Boxplot)</strong>, chiếc hộp của khách "Ngọc PT" bị bẹp dúm ở mức 50.000đ (đây là thói quen bình thường của cô ấy). Đột nhiên có những <em>chấm đỏ văng tít lên cao</em> (200.000đ - 300.000đ) → Đây chính là điểm dị biệt!</li>
+                    <li><strong>Bất thường Thanh toán (Payment Anomaly):</strong> Khách "Ngọc PT" vốn dĩ chỉ toàn chuyển khoản, nhưng trên <strong>Trục thời gian (Timeline)</strong>, đột nhiên xuất hiện một dấu sao màu xanh (thanh toán bằng tiền mặt) → Hệ thống lập tức nghi ngờ nhân viên thu ngân có thể đang gian lận, tự ý lấy tiền mặt bỏ túi và ghi chú bậy bạ.</li>
+                </ul>
+                </div>
+                
+                <div class="insight-img" style="display: flex; gap: 12px; flex-direction: column;">
+                <div class="chart-card">
+                    <img src="/static/images/phase3/boxplot-orders-distribution.png" alt="Phân phối giá trị đơn hàng" onclick="openLightbox(this.src, 'Biểu đồ Hộp (Boxplot): Các chấm đỏ thể hiện giá trị đơn hàng cao bất thường so với thói quen')">
+                </div>
+                <div class="chart-card">
+                    <img src="/static/images/phase3/anomalies-timeline.png" alt="Trục thời gian cảnh báo dị biệt" onclick="openLightbox(this.src, 'Trục thời gian (Timeline): Ghi nhận thời điểm xảy ra bất thường Giá trị (Sao Đỏ) và Thanh toán (Sao Xanh)')">
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="summary-box">
+            <h3 class="summary-title">💡 KẾT LUẬN VÒNG 3 & ĐẦU RA SẢN PHẨM</h3>
+            <div class="summary-grid">
+                <div class="summary-item">
+                <strong>✅ Xử lý Dữ liệu Văn bản (Text Processing):</strong>
+                <p>Biện luận thành công việc không sử dụng các mô hình Trí tuệ nhân tạo (AI) phức tạp do thiếu dữ liệu và từ vựng đặc thù. Sử dụng thuật toán xử lý chuỗi truyền thống tỏ ra cực kỳ hiệu quả, nhanh và nhẹ.</p>
+                </div>
+                <div class="summary-item">
+                <strong>🕵️ Nhận diện Dị biệt (Anomaly Detection):</strong>
+                <p>Áp dụng thuật toán thống kê (Khoảng tứ phân vị) vào việc giám sát từng người dùng cụ thể, giúp phát hiện ngay lập tức các hóa đơn có dấu hiệu bị nhân viên thu ngân thao túng phương thức thanh toán.</p>
+                </div>
+                <div class="summary-item">
+                <strong>🎯 Giá trị Kinh doanh (Business Value):</strong>
+                <p>Thay vì chỉ biết "Tổng doanh thu", chủ cửa hàng giờ đây biết được đích danh Khách hàng A mang lại bao nhiêu tiền, thích trả tiền kiểu gì, và hóa đơn nào của họ đang có nguy cơ bị thất thoát tài chính.</p>
+                </div>
+                <div class="summary-item" style="background: rgba(123, 94, 167, 0.15); border-color: #7b5ea7;">
+                <strong>📦 ĐẦU RA SẢN PHẨM (OUTPUT):</strong>
+                <p>Tạo ra tệp dữ liệu hoàn toàn mới: <code>Customer_Pattern.csv</code>. Tệp này chứa 101 hóa đơn đã được dịch thuật chữ viết tắt, dán nhãn phân loại khách quen và gắn cờ cảnh báo bất thường, sẵn sàng cho người quản lý xem xét thủ công.</p>
+                </div>
+            </div>
+            </div>
+
+        </div>
+        </section>
 
     <!-- ─── PANEL PHASE 4 ─────────────────────────────────────────────────── -->
     <section id="panel-phase-4" class="panel" role="tabpanel" data-phase="4">
-      <div class="phase-header" style="--phase-color: #2ec4b6">
-        <div class="phase-header-meta">
-          <span class="phase-tag">Vòng 4</span>
-          <span class="phase-crisp-label">CRISP-DM: Evaluation + Deployment</span>
+        <div class="phase-header" style="--phase-color: #2ec4b6">
+            <div class="phase-header-meta">
+            <span class="phase-tag">Vòng 4</span>
+            <span class="phase-crisp-label">CRISP-DM: Đánh giá (Evaluation) + Triển khai (Deployment)</span>
+            </div>
+            <h2 class="phase-title">Hành động Đề xuất (Prescriptive — Rule Engine)</h2>
+            <p class="phase-desc">
+            Tích hợp toàn bộ kết quả từ 3 vòng trước để xây dựng một Hệ chuyên gia (Expert System) tự động. 
+            Hệ thống áp dụng 3 quy tắc logic kiểm toán (Rules) nhằm phân loại nguyên nhân sai lệch tiền tệ, 
+            đánh giá mức độ nghiêm trọng và sinh ra báo cáo cảnh báo bằng ngôn ngữ tự nhiên cho người quản lý.
+            </p>
         </div>
-        <h2 class="phase-title">Prescriptive — Rule Engine</h2>
-        <p class="phase-desc">
-          Rule Engine 3 tầng dựa trên kết quả clustering. R1 → R2 → R3 độc lập nhau.
-          Mỗi rule gắn với khuyến nghị hành động cụ thể cho người quản lý.
-        </p>
-      </div>
-      <div class="kpi-row" id="kpis-phase-4"><!-- JS inject --></div>
-      <div class="charts-grid" id="charts-phase-4"><!-- JS inject --></div>
-    </section>
+        
+        <div class="kpi-row" id="kpis-phase-4"></div>
+
+        <div class="report-content">
+            
+            <div class="report-section">
+            <h3 class="section-title">1. Cơ chế hoạt động của Hệ thống Luật (Rule Engine)</h3>
+            <div class="insight-block">
+                <div class="insight-text">
+                <p><strong>Bối cảnh:</strong> Khi có lỗi xảy ra, thay vì để AI tự đoán nguyên nhân (rất dễ sai), chúng ta lập trình sẵn 3 quy tắc cứng dựa trên nghiệp vụ kế toán thực tế.</p>
+                <ul class="insight-list">
+                    <li><strong>Quy tắc 1 (Rule 1) — Nhầm loại tiền:</strong> Máy tính thấy <em>Lệch két (âm tiền)</em> VÀ <em>Lệch đối soát hóa đơn (dương tiền)</em>. Nghĩa là nhân viên đã bấm nhầm nút "Tiền mặt" thành "Chuyển khoản". Tiền không mất đi, chỉ nằm sai sổ sách.</li>
+                    <li><strong>Quy tắc 2 (Rule 2) — Thất thoát thu ngân:</strong> Máy tính thấy <em>Lệch két (âm tiền)</em> nhưng <em>Hóa đơn lại khớp hoàn hảo</em>. <strong>Cảnh báo đỏ!</strong> Có thể nhân viên đã thối nhầm tiền cho khách hoặc tự ý rút tiền từ két.</li>
+                    <li><strong>Quy tắc 3 (Rule 3) — Dư két bất thường:</strong> Máy tính thấy <em>Tiền thực tế nhiều hơn tiền sổ sách</em>. Thường là do ca trước lười chốt sổ, dồn tiền giao thẳng cho ca sau.</li>
+                </ul>
+                </div>
+                <div class="chart-card insight-img">
+                <img src="/static/images/phase4/general-rule-engine.png" alt="Sơ đồ luồng hoạt động Rule Engine" onclick="openLightbox(this.src, 'Sơ đồ luồng: Cơ chế rẽ nhánh và đánh giá của 3 Quy tắc kiểm toán')">
+                </div>
+            </div>
+            </div>
+
+            <div class="report-section">
+            <h3 class="section-title">2. Phân loại Mức độ Nghiêm trọng (Severity) & Báo cáo Tự động</h3>
+            <div class="insight-block reverse">
+                <div class="insight-text">
+                <p><strong>Mục đích:</strong> Không phải lỗi nào cũng cần giám đốc phải ra mặt. Hệ thống tự động phân loại rủi ro để người quản lý biết ưu tiên xử lý cái nào trước.</p>
+                <ul class="insight-list">
+                    <li><strong>Mức độ CAO (Đỏ):</strong> Hệ thống sẽ hú còi nếu một ca làm việc vừa <em>Bị thất thoát tiền (Rule 2)</em>, lại vừa vi phạm <em>Thanh toán sai thói quen của khách (Kết quả từ Vòng 3)</em>. Khả năng gian lận là cực lớn.</li>
+                    <li><strong>Mức độ TRUNG BÌNH (Cam):</strong> Rơi vào <em>Cụm Tải siêu cao (C3 ở Vòng 2)</em> và bị thất thoát. Hệ thống đề xuất không phạt nhân viên, mà cần bố trí thêm người phụ thu ngân vào giờ cao điểm.</li>
+                    <li><strong>Mức độ THẤP (Vàng):</strong> Lỗi dư tiền do lười chốt két (Rule 3). Quản lý chỉ cần nhắc nhở nhân viên làm đúng quy trình bàn giao.</li>
+                    <li><span class="highlight-text">Tính năng nổi bật:</span> Mô-đun sinh báo cáo (Report Generator) tự động viết ra các câu giải thích bằng tiếng Việt rành mạch như một trợ lý kế toán thực thụ, không cần dùng AI ngôn ngữ lớn (LLM).</li>
+                </ul>
+                </div>
+                <div class="insight-img charts-placeholder">
+                <div style="text-align: left; background: #1a1a2e; color: #fff; padding: 16px; border-radius: 8px; font-family: monospace; font-size: 0.8rem; line-height: 1.5;">
+                    <span style="color: #f4845f;">[HỆ THỐNG PHÁT CẢNH BÁO]</span><br>
+                    <span style="color: #4361ee;">Thời gian:</span> 4/18/2026 12:05:56 (Ca Sáng)<br>
+                    <span style="color: #2ec4b6;">Luật vi phạm:</span> R2_That_Thoat_Thu_Ngan<br>
+                    <span style="color: #e8eaf2;">---------------------------------</span><br>
+                    <span style="color: #ff4757;">Mức độ rủi ro:</span> TRUNG BÌNH<br>
+                    <span style="color: #8888aa;">Lý do:</span> Lệch két âm (-287k), Đối soát hóa đơn khớp. Giao dịch rơi vào cụm Tải cao (C3).<br>
+                    <span style="color: #4361ee;">Khuyến nghị:</span> Rà soát lại camera. Cân nhắc bổ sung nhân sự phụ thu tiền lúc đông khách.
+                </div>
+                </div>
+            </div>
+            </div>
+
+            <div class="summary-box">
+            <h3 class="summary-title">💡 TỔNG KẾT DỰ ÁN & ĐẦU RA SẢN PHẨM CUỐI CÙNG</h3>
+            <div class="summary-grid">
+                <div class="summary-item">
+                <strong>🎯 Hoàn thành Mục tiêu (Business Value):</strong>
+                <p>Chuyển đổi thành công một vấn đề đau đầu (lệch tiền liên tục) thành một quy trình giám sát tự động. Giám đốc không cần tự dò từng hóa đơn nữa.</p>
+                </div>
+                <div class="summary-item">
+                <strong>🧠 Hệ thống Lai (Hybrid System):</strong>
+                <p>Sự kết hợp hoàn hảo giữa Mô hình Học máy (K-Means Clustering) để tìm ra quy luật ngầm, và Hệ chuyên gia (Rule Engine) để thực thi quyết định một cách minh bạch.</p>
+                </div>
+                <div class="summary-item">
+                <strong>🚀 Khả năng Triển khai (Deployment):</strong>
+                <p>Thuật toán đủ nhẹ và logic đủ chặt chẽ để có thể cắm trực tiếp (API integration) ngược trở lại vào phần mềm POS Apps Script gốc của cửa hàng.</p>
+                </div>
+                <div class="summary-item" style="background: rgba(46, 196, 182, 0.15); border-color: #2ec4b6;">
+                <strong>📦 SẢN PHẨM CUỐI CÙNG:</strong>
+                <p>Tệp dữ liệu <code>Rule_Engine_Report.csv</code>. Đây là bản báo cáo kiểm toán hoàn chỉnh chứa các cột: Nhóm rủi ro, Mức độ ưu tiên, Khuyến nghị hành động và Đoạn văn giải thích tự động.</p>
+                </div>
+            </div>
+            </div>
+
+        </div>
+        </section>
 
   </main>
 
