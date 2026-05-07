@@ -15,6 +15,7 @@ __pycache__/
 # Thư mục research/training không dùng trên Web
 notebooks_v2/
 document/
+data/
 
 # Docker
 Dockerfile

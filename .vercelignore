@@ -1,0 +1,6 @@
+data/
+notebooks_v2/
+__pycache__/
+.venv/
+.git/
+document/
