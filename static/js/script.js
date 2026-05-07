@@ -98,26 +98,41 @@ function formatNumber(num) {
 // ─── LOGIC CHUYỂN TAB TƯƠNG TÁC ────────────────────────────────────────────
 
 function setupNavigation() {
-    // Lấy tất cả các class có khả năng click chuyển trang (Tab, Node, Card)
-    const triggers = document.querySelectorAll('.nav-tab, .crisp-node, .home-card');
-    
-    triggers.forEach(trigger => {
+    // 1. Lắng nghe các nút chuyển Phase (Tab, Diagram, Cards)
+    const phaseTriggers = document.querySelectorAll('.nav-tab, .crisp-node, .home-card');
+    phaseTriggers.forEach(trigger => {
         trigger.addEventListener('click', (e) => {
-            // Lấy giá trị data-target (ví dụ: "home", "phase-1", "phase-2")
             const targetId = trigger.getAttribute('data-target');
-            
-            // Nếu click vào Node 1 (Business Understanding) không có target
-            if (targetId === "") {
-                showToast("Business Understanding là nền tảng. Vui lòng chọn các Vòng 1-4.");
-                return;
-            }
-
             if (targetId) {
                 e.preventDefault();
+                // Nếu đang ở panel khác (như About), phải bật lại menu "Tổng quan"
+                switchMainTab('home'); 
                 switchPhase(targetId);
             }
         });
     });
+
+    // 2. Lắng nghe Menu chính (Trang chủ / Đội ngũ)
+    const mainNavLinks = document.querySelectorAll('.nav-link[data-target]');
+    mainNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            const target = link.getAttribute('data-target');
+            switchMainTab(target);
+        });
+    });
+}
+
+function switchMainTab(target) {
+    // Ẩn/Hiện panel chính (home hoặc about)
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    const targetPanel = document.getElementById(`panel-${target}`);
+    if (targetPanel) targetPanel.classList.add('active');
+
+    // Cập nhật trạng thái active trên menu
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    document.querySelector(`.nav-link[data-target="${target}"]`)?.classList.add('active');
+    
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function switchPhase(targetId) {

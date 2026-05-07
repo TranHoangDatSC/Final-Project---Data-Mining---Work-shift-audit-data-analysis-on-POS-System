@@ -16,21 +16,22 @@
   ═══════════════════════════════════════════════════════════════════════ -->
   <header class="site-header">
     <div class="header-inner">
-      <div class="header-brand">
-        <!-- Logo placeholder — thay /static/images/logo-hcmue.png nếu có file -->
+        <div class="header-brand">
         <div class="logo-badge" aria-label="HCMUE Logo">
-          <span class="logo-text">HCMUE</span>
+            <span class="logo-text">HCMUE</span>
         </div>
         <div class="header-titles">
-          <span class="header-subtitle">Trường Đại học Sư phạm TP.HCM</span>
-          <span class="header-divider">·</span>
-          <span class="header-subtitle">Môn: Data Mining</span>
+            <span class="header-subtitle">Trường Đại học Sư phạm TP.HCM</span>
+            <span class="header-divider">·</span>
+            <span class="header-subtitle">Môn: Khai thác dữ liệu và Ứng dụng (Data Mining & Application)</span>
         </div>
-      </div>
-      <div class="header-project">
-        <h1 class="project-title">POS Audit Analytics</h1>
-        <p class="project-desc">Phân tích dữ liệu kiểm toán ca làm việc · CRISP-DM Pipeline</p>
-      </div>
+        </div>
+
+        <nav class="main-nav">
+        <button class="nav-link active" data-target="home">Trang chủ</button>
+        <button class="nav-link" data-target="about">Đội ngũ</button>
+        <a href="https://github.com/TranHoangDatSC/..." target="_blank" class="nav-link github-link">GitHub ↗</a>
+        </nav>
     </div>
   </header>
 
@@ -89,193 +90,154 @@
   <main class="content-area">
 
     <!-- ─── PANEL HOME: CRISP-DM Diagram ─────────────────────────────────── -->
-    <section id="panel-home"
-             class="panel active"
-             role="tabpanel"
-             aria-labelledby="tab-home">
+    <section id="panel-home" class="panel active" role="tabpanel">
+    <div class="panel-hero">
+        <h2 class="panel-hero-title">Kiểm toán dòng tiền POS</h2>
+        <br>
+        <p class="panel-hero-sub">Ứng dụng Khai thác dữ liệu trong việc nhận diện sai lệch tài chính và hành vi khách hàng.</p>
+    </div>
+    <br>
 
-      <div class="panel-hero">
-        <h2 class="panel-hero-title">Vòng đời CRISP-DM</h2>
-        <p class="panel-hero-sub">
-          Click vào từng node để khám phá phase phân tích tương ứng.
-          Dự án được thực hiện trên dữ liệu thực từ hệ thống POS Apps Script.
-        </p>
-      </div>
+    <div class="context-grid">
+        <div class="context-card">
+        <h3 class="context-title">🏢 Bối cảnh dự án (Business Context)</h3>
+        <p>Dự án xuất phát từ hệ thống <strong>POS Apps Script</strong> thực tế do nhóm tự phát triển và triển khai cho khách hàng. Trong quá trình vận hành, sự sai lệch giữa "tiền máy tính" và "tiền thực tế" là vấn đề nhức nhối nhất của nhà quản lý.</p>
+        </div>
+        <br>
+        <div class="context-card">
+        <h3 class="context-title">🎯 Mục tiêu nghiệp vụ</h3>
+        <p>Nhận diện các mẫu sai lệch tài chính, phân loại ca làm việc rủi ro cao và hiểu rõ hành vi khách hàng thông qua ghi chú (notes) để tối ưu hóa quy trình kiểm soát nội bộ.</p>
+        </div>
+        <br>
+    </div>
 
-      <!--
-        ══════════════════════════════════════════════════════════════════
-        CRISP-DM DIAGRAM — Được code bằng HTML/CSS thuần, KHÔNG dùng <img>
+    <div class="data-origin-section">
+        <h3 class="section-title">📊 Nguồn dữ liệu gốc (Raw Data)</h3>
+        <div class="data-cards">
+        <div class="data-item">
+            <div class="data-icon">📋<strong>Nhật ký chính (MainLog.csv)</strong></div>
+            <div class="data-info">
+            <span>242 bản ghi chốt ca làm việc. Chứa <code>Vết thời gian</code>, <code>Thông tin về tổng doanh thu</code>, <code>Số tiền mặt/chuyển khoản được máy tính tính toán</code>, <code>Nhận dạng ca sáng/chiều</code> và <code>Số tiền thực tế thủ quỹ kiểm đếm</code>.</span>
+            </div>
+        </div>
+        <br>
+        <div class="data-item">
+            <div class="data-icon">🛒<strong>Chi tiết hóa đơn (DetailsTransaction.csv)</strong></div>
+            <div class="data-info">
+            <span>5.412 giao dịch chi tiết. Chứa <code>Vết thời gian</code>, <code>Tổng doanh thu</code>, <code>Phương thức thanh toán (Tiền mặt/Chuyển khoản)</code>, và quan trọng nhất là cột <code>Ghi chú</code> của nhân viên.</span>
+            </div>
+        </div>
+        </div>
+        <br>
+    </div>
+
+    <div class="crisp-diagram-container">
+        <h3 class="section-title" style="text-align: center; margin-bottom: 40px;">Quy trình CRISP-DM Pipeline</h3>
         
-        Thiết kế: vòng tròn 6 node xoay quanh trung tâm
-        Mỗi node = clickable button → activate tab tương ứng
-        
-        Layout kỹ thuật:
-          • Container dùng CSS Grid + position:relative
-          • Các node dùng position:absolute với transform để đặt theo góc
-          • Mũi tên dùng CSS border + transform:rotate để tạo cung tròn
-          • Các node mapping về Phase của dự án dùng data-target="phase-N"
-          • Các node CRISP-DM gốc (không mapping) dùng data-target="" 
-            → script.js sẽ bỏ qua click trên node này
-        ══════════════════════════════════════════════════════════════════
-      -->
-      <div class="crisp-diagram" role="img" aria-label="CRISP-DM lifecycle diagram">
-        
-        <!-- Vòng kết nối ngoài (decorative ring) -->
+        <div class="crisp-diagram" role="img" aria-label="CRISP-DM lifecycle diagram">
         <div class="crisp-ring crisp-ring--outer"></div>
         <div class="crisp-ring crisp-ring--inner"></div>
-
-        <!-- Node trung tâm: Data -->
         <div class="crisp-center">
-          <div class="crisp-center-icon">🗄</div>
-          <div class="crisp-center-label">DATA</div>
+            <div class="crisp-center-icon">🗄</div>
+            <div class="crisp-center-label">DATA</div>
         </div>
 
-        <!--
-          6 nodes đặt theo vị trí kim đồng hồ:
-          12h → Business Understanding
-          2h  → Data Understanding  ← map Phase 1
-          4h  → Data Preparation    ← map Phase 1
-          6h  → Modeling            ← map Phase 2 & 3
-          8h  → Evaluation          ← map Phase 4
-          10h → Deployment          ← map Phase 4
-        -->
-
-        <!-- Node 1 — 12h: Business Understanding (không map trực tiếp) -->
-        <button class="crisp-node crisp-node--top"
-                data-target=""
-                data-phase-name="Business Understanding"
-                title="Business Understanding — Hiểu bài toán kinh doanh">
-          <span class="node-number">01</span>
-          <span class="node-icon">🎯</span>
-          <span class="node-label">Business<br>Understanding</span>
-          <span class="node-badge">Nền tảng</span>
+        <button class="crisp-node crisp-node--top" data-target="" data-phase-name="Business Understanding" title="Business Understanding — Hiểu bài toán kinh doanh">
+            <span class="node-number">01</span>
+            <span class="node-icon">🎯</span>
+            <span class="node-label">Business<br>Understanding</span>
+            <span class="node-badge">Nền tảng</span>
         </button>
 
-        <!-- Node 2 — 2h: Data Understanding → map Phase 1 -->
-        <button class="crisp-node crisp-node--top-right"
-                data-target="phase-1"
-                data-phase-name="Data Understanding"
-                title="Click để xem Phase 1 — Descriptive Analysis">
-          <span class="node-number">02</span>
-          <span class="node-icon">🔍</span>
-          <span class="node-label">Data<br>Understanding</span>
-          <span class="node-badge node-badge--blue">Vòng 1</span>
+        <button class="crisp-node crisp-node--top-right" data-target="phase-1" data-phase-name="Data Understanding" title="Click để xem Phase 1 — Descriptive Analysis">
+            <span class="node-number">02</span>
+            <span class="node-icon">🔍</span>
+            <span class="node-label">Data<br>Understanding</span>
+            <span class="node-badge node-badge--blue">Vòng 1</span>
         </button>
 
-        <!-- Node 3 — 4h: Data Preparation → map Phase 1 -->
-        <button class="crisp-node crisp-node--bottom-right"
-                data-target="phase-1"
-                data-phase-name="Data Preparation"
-                title="Click để xem Phase 1 — Data Preparation">
-          <span class="node-number">03</span>
-          <span class="node-icon">🔧</span>
-          <span class="node-label">Data<br>Preparation</span>
-          <span class="node-badge node-badge--blue">Vòng 1</span>
+        <button class="crisp-node crisp-node--bottom-right" data-target="phase-1" data-phase-name="Data Preparation" title="Click để xem Phase 1 — Data Preparation">
+            <span class="node-number">03</span>
+            <span class="node-icon">🔧</span>
+            <span class="node-label">Data<br>Preparation</span>
+            <span class="node-badge node-badge--blue">Vòng 1</span>
         </button>
 
-        <!-- Node 4 — 6h: Modeling → map Phase 2 & 3 -->
-        <button class="crisp-node crisp-node--bottom"
-                data-target="phase-2"
-                data-phase-name="Modeling"
-                title="Click để xem Phase 2 — K-Means Clustering">
-          <span class="node-number">04</span>
-          <span class="node-icon">🤖</span>
-          <span class="node-label">Modeling</span>
-          <span class="node-badge node-badge--orange">Vòng 2 & 3</span>
+        <button class="crisp-node crisp-node--bottom" data-target="phase-2" data-phase-name="Modeling" title="Click để xem Phase 2 — K-Means Clustering">
+            <span class="node-number">04</span>
+            <span class="node-icon">🤖</span>
+            <span class="node-label">Modeling</span>
+            <span class="node-badge node-badge--orange">Vòng 2 & 3</span>
         </button>
 
-        <!-- Node 5 — 8h: Evaluation → map Phase 4 -->
-        <button class="crisp-node crisp-node--bottom-left"
-                data-target="phase-4"
-                data-phase-name="Evaluation"
-                title="Click để xem Phase 4 — Rule Engine">
-          <span class="node-number">05</span>
-          <span class="node-icon">📊</span>
-          <span class="node-label">Evaluation</span>
-          <span class="node-badge node-badge--teal">Vòng 4</span>
+        <button class="crisp-node crisp-node--bottom-left" data-target="phase-4" data-phase-name="Evaluation" title="Click để xem Phase 4 — Rule Engine">
+            <span class="node-number">05</span>
+            <span class="node-icon">📊</span>
+            <span class="node-label">Evaluation</span>
+            <span class="node-badge node-badge--teal">Vòng 4</span>
         </button>
 
-        <!-- Node 6 — 10h: Deployment → map Phase 4 -->
-        <button class="crisp-node crisp-node--top-left"
-                data-target="phase-4"
-                data-phase-name="Deployment"
-                title="Click để xem Phase 4 — Prescriptive">
-          <span class="node-number">06</span>
-          <span class="node-icon">🚀</span>
-          <span class="node-label">Deployment</span>
-          <span class="node-badge node-badge--teal">Vòng 4</span>
+        <button class="crisp-node crisp-node--top-left" data-target="phase-4" data-phase-name="Deployment" title="Click để xem Phase 4 — Prescriptive">
+            <span class="node-number">06</span>
+            <span class="node-icon">🚀</span>
+            <span class="node-label">Deployment</span>
+            <span class="node-badge node-badge--teal">Vòng 4</span>
         </button>
 
-        <!-- Mũi tên vòng tròn — dùng SVG inline để vẽ path cong -->
         <svg class="crisp-arrows" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <defs>
-            <marker id="arrowhead" markerWidth="6" markerHeight="6"
-                    refX="3" refY="3" orient="auto">
-              <path d="M0,0 L0,6 L6,3 z" fill="var(--accent)" opacity="0.6"/>
+            <defs>
+            <marker id="arrowhead" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                <path d="M0,0 L0,6 L6,3 z" fill="var(--accent)" opacity="0.6"/>
             </marker>
-          </defs>
-          <!-- 6 cung nối các node theo chiều kim đồng hồ -->
-          <path d="M 200 42  A 158 158 0 0 1 335 112" 
-                fill="none" stroke="var(--accent)" stroke-width="1.5"
-                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-          <path d="M 340 125 A 158 158 0 0 1 340 275"
-                fill="none" stroke="var(--accent)" stroke-width="1.5"
-                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-          <path d="M 328 285 A 158 158 0 0 1 200 358"
-                fill="none" stroke="var(--accent)" stroke-width="1.5"
-                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-          <path d="M 185 358 A 158 158 0 0 1 58 282"
-                fill="none" stroke="var(--accent)" stroke-width="1.5"
-                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-          <path d="M 55 268 A 158 158 0 0 1 60 128"
-                fill="none" stroke="var(--accent)" stroke-width="1.5"
-                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
-          <path d="M 72 115  A 158 158 0 0 1 196 40"
-                fill="none" stroke="var(--accent)" stroke-width="1.5"
-                stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+            </defs>
+            <path d="M 200 42  A 158 158 0 0 1 335 112" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+            <path d="M 340 125 A 158 158 0 0 1 340 275" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+            <path d="M 328 285 A 158 158 0 0 1 200 358" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+            <path d="M 185 358 A 158 158 0 0 1 58 282" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+            <path d="M 55 268  A 158 158 0 0 1 60 128" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
+            <path d="M 72 115  A 158 158 0 0 1 196 40" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="6 4" marker-end="url(#arrowhead)" opacity="0.5"/>
         </svg>
+        </div>
+    </div>
 
-      </div><!-- /.crisp-diagram -->
-
-      <!-- Quick-nav cards bên dưới diagram -->
-      <div class="home-cards">
+    <div class="home-cards">
         <button class="home-card" data-target="phase-1">
-          <span class="hcard-num">01</span>
-          <span class="hcard-color" style="background:#4361ee"></span>
-          <div class="hcard-body">
+        <span class="hcard-num">01</span>
+        <span class="hcard-color" style="background:#4361ee"></span>
+        <div class="hcard-body">
             <strong>Descriptive</strong>
             <span>EDA · Feature Engineering · Pipeline</span>
-          </div>
-          <span class="hcard-arrow">→</span>
+        </div>
+        <span class="hcard-arrow">→</span>
         </button>
         <button class="home-card" data-target="phase-2">
-          <span class="hcard-num">02</span>
-          <span class="hcard-color" style="background:#f4845f"></span>
-          <div class="hcard-body">
+        <span class="hcard-num">02</span>
+        <span class="hcard-color" style="background:#f4845f"></span>
+        <div class="hcard-body">
             <strong>Diagnostic</strong>
             <span>K-Means · PCA · Silhouette</span>
-          </div>
-          <span class="hcard-arrow">→</span>
+        </div>
+        <span class="hcard-arrow">→</span>
         </button>
         <button class="home-card" data-target="phase-3">
-          <span class="hcard-num">03</span>
-          <span class="hcard-color" style="background:#7b5ea7"></span>
-          <div class="hcard-body">
+        <span class="hcard-num">03</span>
+        <span class="hcard-color" style="background:#7b5ea7"></span>
+        <div class="hcard-body">
             <strong>Customer Pattern</strong>
             <span>Text Mining · Anomaly Detection</span>
-          </div>
-          <span class="hcard-arrow">→</span>
+        </div>
+        <span class="hcard-arrow">→</span>
         </button>
         <button class="home-card" data-target="phase-4">
-          <span class="hcard-num">04</span>
-          <span class="hcard-color" style="background:#2ec4b6"></span>
-          <div class="hcard-body">
+        <span class="hcard-num">04</span>
+        <span class="hcard-color" style="background:#2ec4b6"></span>
+        <div class="hcard-body">
             <strong>Prescriptive</strong>
             <span>Rule Engine · Khuyến nghị</span>
-          </div>
-          <span class="hcard-arrow">→</span>
+        </div>
+        <span class="hcard-arrow">→</span>
         </button>
-      </div>
+    </div>
     </section>
 
     <!-- ─── PANEL PHASE 1 ─────────────────────────────────────────────────── -->
